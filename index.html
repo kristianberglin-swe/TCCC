@@ -134,7 +134,7 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
   <div class="title"><span class="badge">H</span>Hypothermia prevention</div>
   <div class="cols">
    <ul><li>Aktiv- eller passiv värmetillförsel</li><li>Förhindra exponering</li><li>Avlägsna blöta persedlar</li></ul>
-   <ul><li>Head injuries</li><li>Bedöm medvetandegrad: A C V P U</li><li>Misstänkt TBI: höj huvudända 30°</li><li>Ögonskador: synundersökning, ögonskydd</li></ul>
+   <ul><li>Head injuries</li><li><button class="inlineLink" id="consciousnessBtn" type="button"><b>Bedöm medvetandegrad: A C V P U</b></button></li><li>Misstänkt TBI: höj huvudända 30°</li><li>Ögonskador: synundersökning, ögonskydd</li></ul>
   </div>
  </section>
 
@@ -220,6 +220,47 @@ function openNPA(e){
 function openRecovery(e){
  if(e) e.stopPropagation();
  showLocalVideo("Stabilt sidoläge","filmer/stabilt-sidolage.mp4",openAirway,"AIRWAY");
+}
+
+function openThoraxExam(e){
+ if(e)e.stopPropagation();
+ title.textContent="Thoraxundersökning";
+ content.innerHTML=`<div class="trainingText" style="text-align:left;max-width:800px;margin:0 auto;line-height:1.5">
+   <h3 style="margin-top:0">Kontroll</h3>
+   <ul>
+     <li>Kan den skadade räkna till 10 på ett andetag?</li>
+   </ul>
+   <p><b>Om ja, B OK!</b> Gå vidare till lilla c.</p>
+   <p><b>Om nej, B problem!</b></p>
+   <ul>
+     <li>Öppna upp uniformen på överkroppen och blotta hudkostymen.</li>
+     <li>Se och känn på bröstkorg och bröstrygg (framsida, baksida och sidor) hela vägen upp till axelpartiet → leta efter blödningar/sår.</li>
+     <li>Vid fynd – notera och anteckna i AT-MIST.</li>
+   </ul>
+   <p>Fortsätt kontrollera bröstkorgen. Vid misstanke om skador → anteckna i AT-MIST.</p>
+   <p>Är den skadade medvetslös kan personen inte räkna till 10 vilket föranleder att kontrollen måste göras för att säkerställa att inget är fel.</p>
+ </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+}
+
+function openConsciousness(e){
+ if(e)e.stopPropagation();
+ title.textContent="Bedöm medvetandegrad";
+ content.innerHTML=`<div class="trainingText" style="text-align:left;max-width:760px;margin:0 auto;line-height:1.5">
+   <h3 style="margin-top:0">Kontroll</h3>
+   <ul>
+     <li>Kan den skadade hålla upp tre fingrar och säga sitt namn?</li>
+   </ul>
+   <p><b>Om ja, notera A (alert)</b> i din AT-MIST och gå vidare till E.</p>
+   <p><b>Om nej, bedöm och notera enligt nedan</b></p>
+   <ul>
+     <li><b>Den skadade reagerar på tilltal/är vaken men svarar med fördröjning, uppträder förvirrat och/eller talar osammanhängande – C (confused)</b></li>
+     <li><b>Den skadade reagerar på tilltal – V (voice responsive)</b></li>
+     <li><b>Den skadade reagerar på smärtstimulering – P (pain responsive)</b></li>
+     <li><b>Den skadade reagerar inte på smärtstimulering – U (unresponsive)</b></li>
+   </ul>
+ </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
 }
 
 function openPelvicInjury(e){
@@ -383,6 +424,8 @@ document.getElementById("thoraxBtn").addEventListener("click",openThoraxVideo);
 document.getElementById("shockBtn").addEventListener("click",openShockVideo);
 document.getElementById("exposeBleedingBtn").addEventListener("click",openExposeBleedingVideo);
 document.getElementById("pelvicBtn").addEventListener("click",openPelvicInjury);
+document.getElementById("consciousnessBtn").addEventListener("click",openConsciousness);
+document.getElementById("thoraxExamBtn").addEventListener("click",openThoraxExam);
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
