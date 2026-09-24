@@ -146,6 +146,17 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
 .bottomcols .pm .title{font-family:Arial,Helvetica,sans-serif!important;font-size:16px!important;font-weight:800!important;line-height:1.2!important}
 @media(max-width:650px){.hGrid{grid-template-columns:1fr!important}.hGrid .title{height:auto!important}}
 
+
+.bottomcols .smallsec.pm .title{
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:16px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+}
+
 </style>
 </head>
 <body>
@@ -202,7 +213,7 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
  <div class="doc">DOKUMENTERA samtliga interventioner i AT-MIST!</div>
 
  <div class="bottomcols">
-  <section class="smallsec pm" tabindex="0" data-key="P"><div class="title">Pain Management</div><div>Paracetamol – 1 g PO<br><br>Fentanyl – enligt utbildning</div></section>
+  <section class="smallsec pm" tabindex="0" data-key="P"><div class="title"><span class="badge" style="background:#7b5a78">P</span>Pain Management</div><div>Paracetamol – 1 g PO<br><br>Fentanyl – enligt utbildning</div></section>
   <section class="smallsec ab" tabindex="0" data-key="AB"><div class="title"><span class="badge" style="background:#244a6a">A</span>Antibiotic Administration</div></section>
   <section class="smallsec wound" tabindex="0" data-key="W"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div>Konvertering/repositionering TQ<br>Brännskador • Sårskador<br>Amp.skador • Bukskador</div></section>
   <section class="smallsec splint" tabindex="0" data-key="S"><div class="title"><span class="badge" style="background:#315d80">S</span>Splinting</div><div>Avlägsna klockor, smycken<br>Distalstatus<br>Stabilisera och bandagera</div></section>
@@ -281,6 +292,11 @@ function openNPA(e){
 function openRecovery(e){
  if(e) e.stopPropagation();
  showLocalVideo("Stabilt sidoläge","filmer/stabilt-sidolage.mp4",openAirway,"AIRWAY");
+}
+
+function openSplinting(e){
+ if(e)e.stopPropagation();
+ showLocalVideo("Splinting","filmer/splinting.mp4",close,"MINNESKORTET");
 }
 
 function openHypothermia(e){
@@ -503,6 +519,7 @@ document.getElementById("pelvicBtn").addEventListener("click",openPelvicInjury);
 document.getElementById("consciousnessBtn").addEventListener("click",openConsciousness);
 document.getElementById("thoraxExamBtn").addEventListener("click",openThoraxExam);
 document.getElementById("hypothermiaBtn").addEventListener("click",openHypothermia);
+document.getElementById("splintingBtn").addEventListener("click",openSplinting);
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
