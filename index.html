@@ -223,8 +223,22 @@ function openRecovery(e){
 }
 
 function openRespirationVideo(e){ if(e)e.stopPropagation(); showLocalVideo("R – Respiration","filmer/respiration.mp4",()=>close(),"MINNESKORTET"); }
-function openNDCVideo(e){ if(e)e.stopPropagation(); showLocalVideo("Nåldekompression (NDC)","filmer/naldekompression.mp4",()=>close(),"MINNESKORTET"); }
-function openThoraxVideo(e){ if(e)e.stopPropagation(); showLocalVideo("Thoraxförband","filmer/thoraxforband.mp4",()=>close(),"MINNESKORTET"); }
+function openNDCVideo(e){
+ if(e)e.stopPropagation();
+ title.textContent="Nåldekompression (NDC)";
+ content.innerHTML=`<div class="imageWrap"><img class="trainingImage" src="bilder/ndc.png" alt="NDC site selection"></div>
+ <div class="actions" style="margin-top:14px"><button id="ndcFilmBtn" type="button">▶ VISA FILM</button></div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ document.getElementById("ndcFilmBtn").addEventListener("click",()=>showLocalVideo("Nåldekompression (NDC)","filmer/naldekompression.mp4",openNDCVideo,"NDC"));
+}
+function openThoraxVideo(e){
+ if(e)e.stopPropagation();
+ title.textContent="Thoraxförband";
+ content.innerHTML=`<div class="imageWrap"><img class="trainingImage" src="bilder/thoraxforband.png" alt="Vented chest seals"></div>
+ <div class="actions" style="margin-top:14px"><button id="thoraxFilmBtn" type="button">▶ VISA FILM</button></div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ document.getElementById("thoraxFilmBtn").addEventListener("click",()=>showLocalVideo("Thoraxförband","filmer/thoraxforband.mp4",openThoraxVideo,"THORAXFÖRBAND"));
+}
 
 function openTamponering(e){
  if(e) e.stopPropagation();
