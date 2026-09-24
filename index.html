@@ -125,7 +125,7 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
  <section class="section c" tabindex="0" data-key="C">
   <div class="title"><span class="badge">C</span>Circulation</div>
   <div class="cols">
-   <ul><li>Exponera och bedöm blödning(ar)</li><li>Bedöm blödningskontroll</li><li>Radialispuls, mentalstatus</li><li>Misstänkt bäckenskada →</li></ul>
+   <ul><li>Exponera och bedöm blödning(ar)</li><li>Bedöm blödningskontroll</li><li><button class="inlineLink" id="shockBtn" type="button"><b>Bedöm blödningschock</b></button></li><li>Radialispuls, mentalstatus</li><li>Misstänkt bäckenskada →</li></ul>
    <ul><li>Etablera blödningskontroll</li><li>Anteckna tid(er) på TQ</li><li>Varsam hantering</li></ul>
   </div>
  </section>
@@ -220,6 +220,11 @@ function openNPA(e){
 function openRecovery(e){
  if(e) e.stopPropagation();
  showLocalVideo("Stabilt sidoläge","filmer/stabilt-sidolage.mp4",openAirway,"AIRWAY");
+}
+
+function openShockVideo(e){
+ if(e)e.stopPropagation();
+ showLocalVideo("Bedöm blödningschock","filmer/blodningschock.mp4",()=>close(),"MINNESKORTET");
 }
 
 function openRespirationVideo(e){ if(e)e.stopPropagation(); showLocalVideo("R – Respiration","filmer/respiration.mp4",()=>close(),"MINNESKORTET"); }
@@ -351,6 +356,7 @@ document.getElementById("recoveryBtn").addEventListener("keydown",e=>e.stopPropa
 document.getElementById("respirationBtn").addEventListener("click",openRespirationVideo);
 document.getElementById("ndcBtn").addEventListener("click",openNDCVideo);
 document.getElementById("thoraxBtn").addEventListener("click",openThoraxVideo);
+document.getElementById("shockBtn").addEventListener("click",openShockVideo);
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
