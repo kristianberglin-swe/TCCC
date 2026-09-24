@@ -257,6 +257,11 @@ body{background:repeating-linear-gradient(38deg,#676b68 0px,#676b68 3px,#70746f 
 @media(max-width:600px){.card{border:2px solid #a59a83!important;border-radius:5px!important}}
 
 .panelHead .close{position:relative;z-index:100;pointer-events:auto;cursor:pointer;min-width:42px;min-height:42px;}
+/* Respiration: läsbara indrag utan att ändra minneskortets övriga layout */
+.section.r .cols ul ul{margin:3px 0 4px 12px;padding-left:13px;list-style-type:circle}
+.section.r .cols li{margin-bottom:3px}
+.section.r .resp-worsening{margin-top:13px}
+.section.r .resp-worsening>b{display:block;margin-bottom:3px}
 </style>
 </head>
 <body>
@@ -284,8 +289,22 @@ body{background:repeating-linear-gradient(38deg,#676b68 0px,#676b68 3px,#70746f 
  <section class="section r" tabindex="0" data-key="R">
   <div class="title"><button class="inlineLink" id="respirationBtn" type="button"><span class="badge">R</span>Respiration</button></div>
   <div class="cols">
-   <ul><li>Thoraxundersökning<br>(fram, bak, sidor, axiller, axlar)</li><li>Bedöm respiration</li><li>Bedöm andningsfrekvens (AF)</li></ul>
-   <ul><li><button class="inlineLink" id="thoraxBtn" type="button"><b>Thoraxförband</b></button> över öppna skador</li><li><b>Vid försämring:</b> lätta/torka rent, återförslut</li><li>Överväg <button class="inlineLink" id="ndcBtn" type="button"><b>nåldekompression (NDC)</b></button></li></ul>
+   <ul>
+    <li><button class="inlineLink" id="thoraxExamBtn" type="button"><b>Thoraxundersökning</b></button><br><em>(fram, bak, sidor, axiller, axlar)</em></li>
+    <li><b>Bedöm respiration</b>
+      <ul><li>Bedöm andningsfrekvens (AF)<br><em>(normal, snabb, ytlig)</em></li></ul>
+    </li>
+   </ul>
+   <ul>
+    <li><button class="inlineLink" id="thoraxBtn" type="button"><b>Thoraxförband</b></button> över öppna skador</li>
+    <li class="resp-worsening"><b>Vid försämring:</b>
+      <ul>
+       <li>Lätta, torka rent (≥ 10 sek), återförslut</li>
+       <li><em>Kan upprepas vid behov</em> (burpa)</li>
+      </ul>
+    </li>
+    <li>Överväg <button class="inlineLink" id="ndcBtn" type="button"><b>nåldekompression (NDC)</b></button></li>
+   </ul>
   </div>
  </section>
 
@@ -316,7 +335,7 @@ body{background:repeating-linear-gradient(38deg,#676b68 0px,#676b68 3px,#70746f 
   <section class="smallsec pm" tabindex="0" data-key="P"><div class="title"><span class="badge" style="background:#7b5a78">P</span>Pain Management</div><div>Paracetamol – 1 g PO<br><br>Fentanyl – enligt utbildning</div></section>
   <section class="smallsec ab" tabindex="0" data-key="AB"><div class="title"><span class="badge" style="background:#244a6a">A</span>Antibiotic Administration</div></section>
   <section class="smallsec wound" tabindex="0" data-key="W"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div>Konvertering/repositionering TQ<br>Brännskador • Sårskador<br>Amp.skador • Bukskador</div></section>
-  <section class="smallsec splint" tabindex="0" data-key="S"><div class="title"><span class="badge" style="background:#315d80">S</span>Splinting</div><div>Avlägsna klockor, smycken<br>Distalstatus<br>Stabilisera och bandagera</div></section>
+  <section class="smallsec splint" tabindex="0" data-key="S"><div class="title"><button class="inlineLink" id="splintingBtn" type="button"><span class="badge" style="background:#315d80">S</span>Splinting</button></div><div>Avlägsna klockor, smycken<br>Distalstatus<br>Stabilisera och bandagera</div></section>
  </div>
  <div class="tap">KLICKA PÅ ETT MOMENT FÖR ATT TRÄNA</div>
  <div class="footer">TCCC / CLS – interaktiv träningsversion</div>
@@ -342,6 +361,18 @@ const data={
  S:["S – Splinting","Träna immobilisering och kontroll före/efter åtgärd.","Avlägsna klockor/smycken • distalstatus • stabilisera • bandagera"]
 };
 const modal=document.getElementById("modal"), title=document.getElementById("modalTitle"), content=document.getElementById("modalContent");
+
+function closeTrainingModal(){
+  modal.querySelectorAll("video").forEach(v=>{try{v.pause();v.removeAttribute("src");v.querySelectorAll("source").forEach(x=>x.removeAttribute("src"));v.load();}catch(err){}});
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+  content.replaceChildren();
+}
+// Register closing controls before the rest of the training interactions.
+modal.querySelector(".close").addEventListener("click",e=>{e.preventDefault();e.stopPropagation();closeTrainingModal();});
+modal.addEventListener("click",e=>{if(e.target===modal)closeTrainingModal();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.classList.contains("open"))closeTrainingModal();});
+
 function openSection(key){
  const d=data[key]; if(!d)return;
  title.textContent=d[0];
@@ -365,7 +396,7 @@ function showLocalVideo(titleText, src, backFn, backLabel){
    <button type="button" id="videoBackBtn">← TILLBAKA TILL ${backLabel}</button>
  </div>`;
  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
- document.getElementById("videoBackBtn").addEventListener("click",backFn);
+ document.getElementById("videoBackBtn")?.addEventListener("click",backFn);
  const v=document.getElementById("activeTrainingVideo");
  if(v){ v.currentTime=0; const p=v.play(); if(p && p.catch) p.catch(()=>{}); }
 }
@@ -532,7 +563,7 @@ function openTamponering(e){
    <button id="tamponeringVideoBtn" type="button">▶ VISA FILM</button>
  </div>`;
  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
- document.getElementById("tamponeringVideoBtn").addEventListener("click",openTamponeringVideo);
+ document.getElementById("tamponeringVideoBtn")?.addEventListener("click",openTamponeringVideo);
 }
 
 function openTamponeringVideo(){
@@ -565,7 +596,7 @@ function openTourniquet(e){
    <button id="tourniquetVideoBtn" type="button">▶ VISA FILM</button>
  </div>`;
  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
- document.getElementById("tourniquetVideoBtn").addEventListener("click",openTourniquetVideo);
+ document.getElementById("tourniquetVideoBtn")?.addEventListener("click",openTourniquetVideo);
 }
 
 function openTourniquetVideo(){
@@ -616,49 +647,35 @@ function openBloodSweep(e){
  setTimeout(()=>document.getElementById("bloodSweepVideoBtn").addEventListener("click",openBloodSweepVideo),0);
  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
 }
-document.getElementById("bloodSweepBtn").addEventListener("click",openBloodSweep);
+document.getElementById("bloodSweepBtn")?.addEventListener("click",openBloodSweep);
 document.getElementById("bloodSweepBtn").addEventListener("keydown",e=>e.stopPropagation());
-document.getElementById("tourniquetBtn").addEventListener("click",openTourniquet);
+document.getElementById("tourniquetBtn")?.addEventListener("click",openTourniquet);
 document.getElementById("tourniquetBtn").addEventListener("keydown",e=>e.stopPropagation());
-document.getElementById("tamponeringBtn").addEventListener("click",openTamponering);
+document.getElementById("tamponeringBtn")?.addEventListener("click",openTamponering);
 document.getElementById("tamponeringBtn").addEventListener("keydown",e=>e.stopPropagation());
-document.getElementById("airwayBtn").addEventListener("click",openAirway);
+document.getElementById("airwayBtn")?.addEventListener("click",openAirway);
 document.getElementById("airwayBtn").addEventListener("keydown",e=>e.stopPropagation());
-document.getElementById("jawLiftBtn").addEventListener("click",openJawLift);
+document.getElementById("jawLiftBtn")?.addEventListener("click",openJawLift);
 document.getElementById("jawLiftBtn").addEventListener("keydown",e=>e.stopPropagation());
-document.getElementById("npaBtn").addEventListener("click",openNPA);
+document.getElementById("npaBtn")?.addEventListener("click",openNPA);
 document.getElementById("npaBtn").addEventListener("keydown",e=>e.stopPropagation());
-document.getElementById("recoveryBtn").addEventListener("click",openRecovery);
+document.getElementById("recoveryBtn")?.addEventListener("click",openRecovery);
 document.getElementById("recoveryBtn").addEventListener("keydown",e=>e.stopPropagation());
-document.getElementById("respirationBtn").addEventListener("click",openRespirationVideo);
-document.getElementById("ndcBtn").addEventListener("click",openNDCVideo);
-document.getElementById("thoraxBtn").addEventListener("click",openThoraxVideo);
-document.getElementById("shockBtn").addEventListener("click",openShockVideo);
-document.getElementById("exposeBleedingBtn").addEventListener("click",openExposeBleedingVideo);
-document.getElementById("pelvicBtn").addEventListener("click",openPelvicInjury);
-document.getElementById("consciousnessBtn").addEventListener("click",openConsciousness);
-document.getElementById("thoraxExamBtn").addEventListener("click",openThoraxExam);
-document.getElementById("hypothermiaBtn").addEventListener("click",openHypothermia);
-document.getElementById("splintingBtn").addEventListener("click",openSplinting);
-document.getElementById("atmistBtn").addEventListener("click",openATMIST);
+document.getElementById("respirationBtn")?.addEventListener("click",openRespirationVideo);
+document.getElementById("ndcBtn")?.addEventListener("click",openNDCVideo);
+document.getElementById("thoraxBtn")?.addEventListener("click",openThoraxVideo);
+document.getElementById("shockBtn")?.addEventListener("click",openShockVideo);
+document.getElementById("exposeBleedingBtn")?.addEventListener("click",openExposeBleedingVideo);
+document.getElementById("pelvicBtn")?.addEventListener("click",openPelvicInjury);
+document.getElementById("consciousnessBtn")?.addEventListener("click",openConsciousness);
+document.getElementById("thoraxExamBtn")?.addEventListener("click",openThoraxExam);
+document.getElementById("hypothermiaBtn")?.addEventListener("click",openHypothermia);
+document.getElementById("splintingBtn")?.addEventListener("click",openSplinting);
+document.getElementById("atmistBtn")?.addEventListener("click",openATMIST);
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
  el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openSection(el.dataset.key)}})
 });
-function closeTrainingModal(){
-  const playingVideo=modal.querySelector("video");
-  if(playingVideo){try{playingVideo.pause();playingVideo.currentTime=0;}catch(err){}}
-  modal.classList.remove("open");
-  modal.setAttribute("aria-hidden","true");
-  content.innerHTML="";
-}
-document.querySelector("#modal .close").addEventListener("click",function(e){
-  e.preventDefault();
-  e.stopPropagation();
-  closeTrainingModal();
-});
-modal.addEventListener("click",function(e){if(e.target===modal)closeTrainingModal();});
-document.addEventListener("keydown",function(e){if(e.key==="Escape")closeTrainingModal();});
 </script>
 </body></html>
