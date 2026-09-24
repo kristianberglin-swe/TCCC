@@ -101,7 +101,7 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
    <div class="title"><span class="badge">M</span>Massive Hemorrhage</div>
    <div class="cols">
     <ul><li><button class="inlineLink" id="bloodSweepBtn" type="button"><b>Blodsvep</b></button><br>(nacke, axiller, ljumskar, extremiteter)</li><li>Bedöm effekt av tidigare TQ, Tamp.</li></ul>
-    <ul><li>Exponera sår, klipp kläder vid behov</li><li><button class="inlineLink" id="tourniquetBtn" type="button"><b>Tourniquet</b></button>, notera tid(er)</li><li>Tamponering</li></ul>
+    <ul><li>Exponera sår, klipp kläder vid behov</li><li><button class="inlineLink" id="tourniquetBtn" type="button"><b>Tourniquet</b></button>, notera tid(er)</li><li><button class="inlineLink" id="tamponeringBtn" type="button"><b>Tamponering</b></button></li></ul>
    </div>
  </section>
 
@@ -181,6 +181,39 @@ function openSection(key){
  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
 }
 
+function openTamponering(e){
+ if(e) e.stopPropagation();
+ title.textContent="Tamponering";
+ content.innerHTML=`<div class="imageWrap">
+   <img class="trainingImage" src="bilder/tamponering.png" alt="Utbildningsbild – tamponering / wound packing">
+ </div>
+ <div class="actions" style="margin-top:14px">
+   <button id="tamponeringVideoBtn" type="button">▶ VISA FILM</button>
+ </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ document.getElementById("tamponeringVideoBtn").addEventListener("click",openTamponeringVideo);
+}
+
+function openTamponeringVideo(){
+ title.textContent="Tamponering – film";
+ content.innerHTML=`<div class="localVideoBox">
+   <video id="tamponeringVideo" controls autoplay playsinline preload="auto">
+     <source src="filmer/tamponering.mp4" type="video/mp4">
+     Din webbläsare kan inte spela upp MP4-video.
+   </video>
+ </div>
+ <div class="actions" style="margin-top:14px">
+   <button type="button" onclick="openTamponering()">← TILLBAKA TILL TAMPONERING</button>
+ </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ const v=document.getElementById("tamponeringVideo");
+ if(v){
+   v.currentTime=0;
+   const p=v.play();
+   if(p && p.catch) p.catch(()=>{});
+ }
+}
+
 function openTourniquet(e){
  if(e) e.stopPropagation();
  title.textContent="Tourniquet";
@@ -246,6 +279,8 @@ document.getElementById("bloodSweepBtn").addEventListener("click",openBloodSweep
 document.getElementById("bloodSweepBtn").addEventListener("keydown",e=>e.stopPropagation());
 document.getElementById("tourniquetBtn").addEventListener("click",openTourniquet);
 document.getElementById("tourniquetBtn").addEventListener("keydown",e=>e.stopPropagation());
+document.getElementById("tamponeringBtn").addEventListener("click",openTamponering);
+document.getElementById("tamponeringBtn").addEventListener("keydown",e=>e.stopPropagation());
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
