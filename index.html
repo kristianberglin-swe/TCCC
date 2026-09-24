@@ -203,6 +203,42 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
   border-right:0 !important;
 }
 
+
+/* Minneskort: varsamt slitet, laminerat fältkort */
+body{background:repeating-linear-gradient(38deg,#676b68 0px,#676b68 3px,#70746f 4px,#70746f 7px)!important}
+.card{
+  isolation:isolate;
+  border:2px solid #a4a198!important;
+  border-radius:7px 5px 9px 6px;
+  overflow:hidden;
+  box-shadow:0 3px 0 #c7c1b2 inset,0 2px 2px #ffffff77 inset,0 18px 45px #2027228c,4px 6px 0 #3e4441!important;
+  transform:rotate(-.22deg);
+}
+/* Pappersfibrer, lätta veck och slitage utan att försämra textens läsbarhet */
+.card::after{
+  content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:
+    radial-gradient(ellipse 90px 22px at 2% 2%,#fff8,transparent 80%),
+    radial-gradient(ellipse 120px 40px at 99% 99%,#615d4d16,transparent 90%),
+    linear-gradient(113deg,transparent 0 47%,#8b806d0b 49%,#ffffff1c 50%,transparent 52%),
+    repeating-linear-gradient(7deg,transparent 0px,transparent 21px,#665b4905 22px,transparent 23px);
+  box-shadow:inset 0 0 18px #766d5a25,inset 0 0 3px 2px #fff9;
+}
+.top{background:linear-gradient(180deg,#252a2b,#111819)!important;border-bottom:4px solid #6f8f9d!important}
+.section{position:relative;border-bottom:1px solid #8b85797d!important}
+.section::before,.smallsec::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(91deg,transparent 0px,transparent 51px,#fff7 52px,transparent 53px);
+  opacity:.22;
+}
+.smallsec{position:relative;border-bottom:1px solid #8b85797d!important}
+.doc{border-top:1px solid #b7a54a;border-bottom:2px solid #b7a54a!important;
+ background:linear-gradient(180deg,#ffe46a,#ffd643)!important}
+.badge{border:1px solid #ffffffa8;box-shadow:0 1px 2px #25252545,inset 0 1px 1px #fff5}
+.panel{border-radius:4px;background:#f7f4ea!important}
+@media(max-width:600px){.card{transform:none;border-radius:0;box-shadow:none!important}}
+@media(prefers-reduced-motion:reduce){.card{transform:none}}
+
 </style>
 </head>
 <body>
