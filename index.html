@@ -138,12 +138,14 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
 .actions button:hover{filter:brightness(1.08);}
 
 
-/* Korrigeringar */
-.hTwoCols{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
-.hTwoCols>div,.hTwoCols .title{margin-top:0!important;padding-top:0!important}
-.hTwoCols ul{margin-top:6px}
-.smallsec.pm>.title{font-size:16px!important;font-weight:800!important;line-height:1.15!important;font-family:Arial,Helvetica,sans-serif!important}
-@media(max-width:650px){.hTwoCols{grid-template-columns:1fr}}
+.hGrid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:18px!important;align-items:start!important}
+.hGrid .hCol{margin:0!important;padding:0!important}
+.hGrid .title{margin:0 0 5px 0!important;padding:0!important;height:25px!important;display:flex!important;align-items:center!important}
+.hGrid ul{margin-top:3px!important}
+.bottomcols .smallsec .title{font-family:Arial,Helvetica,sans-serif!important;font-size:16px!important;font-weight:800!important;line-height:1.2!important}
+.bottomcols .pm .title{font-family:Arial,Helvetica,sans-serif!important;font-size:16px!important;font-weight:800!important;line-height:1.2!important}
+@media(max-width:650px){.hGrid{grid-template-columns:1fr!important}.hGrid .title{height:auto!important}}
+
 </style>
 </head>
 <body>
@@ -185,10 +187,15 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
  </section>
 
  <section class="section h" tabindex="0" data-key="H">
-  <div class="title"><button class="inlineLink" id="hypothermiaBtn" type="button"><span class="badge">H</span>Hypothermia prevention</button></div>
-  <div class="cols">
-   <ul><li>Aktiv- eller passiv värmetillförsel</li><li>Förhindra exponering</li><li>Avlägsna blöta persedlar</li></ul>
-   <ul><div class="title" style="margin-top:0"><span class="badge">H</span>Head injuries</div><li><button class="inlineLink" id="consciousnessBtn" type="button"><b>Bedöm medvetandegrad: A C V P U</b></button></li><li>Misstänkt TBI: höj huvudända 30°</li><li>Ögonskador: synundersökning, ögonskydd</li></ul>
+  <div class="hGrid">
+    <div class="hCol">
+      <div class="title"><button class="inlineLink" id="hypothermiaBtn" type="button"><span class="badge">H</span>Hypothermia prevention</button></div>
+      <ul><li>Aktiv- eller passiv värmetillförsel</li><li>Förhindra exponering</li><li>Avlägsna blöta persedlar</li></ul>
+    </div>
+    <div class="hCol">
+      <div class="title"><span class="badge">H</span>Head injuries</div>
+      <ul><li><button class="inlineLink" id="consciousnessBtn" type="button"><b>Bedöm medvetandegrad: A C V P U</b></button></li><li>Misstänkt TBI: höj huvudända 30°</li><li>Ögonskador: synundersökning, ögonskydd</li></ul>
+    </div>
   </div>
  </section>
 
@@ -502,19 +509,18 @@ document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openSection(el.dataset.key)}})
 });
 function close(){
- const v=content.querySelector("video");
- if(v){try{v.pause();v.currentTime=0}catch(err){}}
- modal.classList.remove("open");
- modal.setAttribute("aria-hidden","true");
- content.innerHTML="";
+  const playingVideo=modal.querySelector("video");
+  if(playingVideo){try{playingVideo.pause();playingVideo.currentTime=0;}catch(err){}}
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+  content.innerHTML="";
 }
-const closeButton=document.querySelector("#modal .close");
-if(closeButton){
- closeButton.addEventListener("click",function(e){
-   e.preventDefault(); e.stopPropagation(); close();
- });
-}
-modal.addEventListener("click",e=>{if(e.target===modal)close()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+document.querySelector("#modal .close").addEventListener("click",function(e){
+  e.preventDefault();
+  e.stopPropagation();
+  close();
+});
+modal.addEventListener("click",function(e){if(e.target===modal)close();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")close();});
 </script>
 </body></html>
