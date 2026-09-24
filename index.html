@@ -101,7 +101,7 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
    <div class="title"><span class="badge">M</span>Massive Hemorrhage</div>
    <div class="cols">
     <ul><li><button class="inlineLink" id="bloodSweepBtn" type="button"><b>Blodsvep</b></button><br>(nacke, axiller, ljumskar, extremiteter)</li><li>Bedöm effekt av tidigare TQ, Tamp.</li></ul>
-    <ul><li>Exponera sår, klipp kläder vid behov</li><li>Tourniquet, notera tid(er)</li><li>Tamponering</li></ul>
+    <ul><li>Exponera sår, klipp kläder vid behov</li><li><button class="inlineLink" id="tourniquetBtn" type="button"><b>Tourniquet</b></button>, notera tid(er)</li><li>Tamponering</li></ul>
    </div>
  </section>
 
@@ -181,6 +181,34 @@ function openSection(key){
  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
 }
 
+function openTourniquet(e){
+ if(e) e.stopPropagation();
+ title.textContent="Tourniquet";
+ content.innerHTML=`<div class="imageWrap">
+   <img class="trainingImage" src="bilder/tourniquet.png" alt="Utbildningsbild – tourniquet">
+ </div>
+ <div class="actions" style="margin-top:14px">
+   <button id="tourniquetVideoBtn" type="button">▶ VISA FILM</button>
+ </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ document.getElementById("tourniquetVideoBtn").addEventListener("click",openTourniquetVideo);
+}
+
+function openTourniquetVideo(){
+ title.textContent="Tourniquet – film";
+ content.innerHTML=`<div class="localVideoBox">
+   <video id="tourniquetVideo" controls autoplay playsinline preload="auto">
+     <source src="filmer/tourniquet.mp4" type="video/mp4">
+   </video>
+ </div>
+ <div class="actions" style="margin-top:14px">
+   <button type="button" onclick="openTourniquet()">← TILLBAKA TILL TOURNIQUET</button>
+ </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ const v=document.getElementById("tourniquetVideo");
+ if(v){ v.currentTime=0; const p=v.play(); if(p && p.catch) p.catch(()=>{}); }
+}
+
 function openBloodSweepVideo(){
  title.textContent="Blodsvep – film";
  content.innerHTML=`<div class="localVideoBox">
@@ -216,6 +244,8 @@ function openBloodSweep(e){
 }
 document.getElementById("bloodSweepBtn").addEventListener("click",openBloodSweep);
 document.getElementById("bloodSweepBtn").addEventListener("keydown",e=>e.stopPropagation());
+document.getElementById("tourniquetBtn").addEventListener("click",openTourniquet);
+document.getElementById("tourniquetBtn").addEventListener("keydown",e=>e.stopPropagation());
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
