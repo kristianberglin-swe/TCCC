@@ -184,7 +184,7 @@ function openSection(key){
 function openBloodSweepVideo(){
  title.textContent="Blodsvep – film";
  content.innerHTML=`<div class="localVideoBox">
-   <video id="bloodSweepVideo" controls playsinline preload="metadata">
+   <video id="bloodSweepVideo" controls autoplay playsinline preload="auto">
      <source src="filmer/blodsvep.mp4" type="video/mp4">
      Din webbläsare kan inte spela upp MP4-video.
    </video>
@@ -193,6 +193,12 @@ function openBloodSweepVideo(){
    <button type="button" onclick="openBloodSweep()">← TILLBAKA TILL BLODSVEP</button>
  </div>`;
  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ const v=document.getElementById("bloodSweepVideo");
+ if(v){
+   v.currentTime=0;
+   const p=v.play();
+   if(p && p.catch) p.catch(()=>{});
+ }
 }
 
 function openBloodSweep(e){
