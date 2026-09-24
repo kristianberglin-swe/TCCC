@@ -94,6 +94,49 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
 /* Align the two H-section headings on the same top line */
 .h-grid > * { align-self: start; }
 
+
+/* Gladare och kraftigare färgpalett */
+:root{
+  --red:#e53935;
+  --blue:#168bd2;
+  --orange:#f28c28;
+  --purple:#7b5a78;
+  --yellow:#ffd84d;
+  --green:#2e9f62;
+}
+.card{
+  background:linear-gradient(180deg,#fffefa 0%,#fffaf2 100%);
+}
+.band.m{background:#f8d6dc !important;border-top-color:#e53935 !important;}
+.band.a{background:#dceffb !important;border-top-color:#168bd2 !important;}
+.band.r{background:#e7f5ef !important;border-top-color:#2e9f62 !important;}
+.band.c{background:#fbe2d3 !important;border-top-color:#f28c28 !important;}
+.band.h{background:#eadde8 !important;border-top-color:#7b5a78 !important;}
+.badge{
+  box-shadow:0 1px 2px #0003;
+}
+.band.m .badge{background:#d92f43 !important;}
+.band.a .badge{background:#168bd2 !important;}
+.band.r .badge{background:#2e9f62 !important;}
+.band.c .badge{background:#f07d22 !important;}
+.band.h .badge{background:#7b5a78 !important;}
+.docbar{background:#ffd84d !important;color:#161616 !important;}
+.inlineLink{
+  text-decoration-color:currentColor;
+  text-decoration-thickness:2px;
+  text-underline-offset:2px;
+}
+.modalCard{
+  background:#fffdf8 !important;
+  border-top:5px solid #168bd2;
+}
+.actions button{
+  background:#168bd2 !important;
+  color:white !important;
+  border-color:#0e6fa9 !important;
+}
+.actions button:hover{filter:brightness(1.08);}
+
 </style>
 </head>
 <body>
@@ -135,7 +178,7 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
  </section>
 
  <section class="section h" tabindex="0" data-key="H">
-  <div class="title"><span class="badge">H</span>Hypothermia prevention</div>
+  <div class="title"><button class="inlineLink" id="hypothermiaBtn" type="button"><span class="badge">H</span>Hypothermia prevention</button></div>
   <div class="cols">
    <ul><li>Aktiv- eller passiv värmetillförsel</li><li>Förhindra exponering</li><li>Avlägsna blöta persedlar</li></ul>
    <ul><div class="title" style="margin-top:0"><span class="badge">H</span>Head injuries</div><li><button class="inlineLink" id="consciousnessBtn" type="button"><b>Bedöm medvetandegrad: A C V P U</b></button></li><li>Misstänkt TBI: höj huvudända 30°</li><li>Ögonskador: synundersökning, ögonskydd</li></ul>
@@ -224,6 +267,21 @@ function openNPA(e){
 function openRecovery(e){
  if(e) e.stopPropagation();
  showLocalVideo("Stabilt sidoläge","filmer/stabilt-sidolage.mp4",openAirway,"AIRWAY");
+}
+
+function openHypothermia(e){
+ if(e)e.stopPropagation();
+ title.textContent="Hypothermia prevention";
+ content.innerHTML=`<div class="imageWrap">
+   <img class="trainingImage" src="bilder/hypothermia-prevention.png" alt="Hypothermia prevention">
+ </div>
+ <div class="actions" style="margin-top:14px">
+   <button id="hypothermiaFilmBtn" type="button">▶ VISA FILM</button>
+ </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ document.getElementById("hypothermiaFilmBtn").addEventListener("click",()=>showLocalVideo(
+   "Hypothermia prevention","filmer/hypothermia-prevention.mp4",openHypothermia,"HYPOTHERMIA PREVENTION"
+ ));
 }
 
 function openThoraxExam(e){
@@ -430,6 +488,7 @@ document.getElementById("exposeBleedingBtn").addEventListener("click",openExpose
 document.getElementById("pelvicBtn").addEventListener("click",openPelvicInjury);
 document.getElementById("consciousnessBtn").addEventListener("click",openConsciousness);
 document.getElementById("thoraxExamBtn").addEventListener("click",openThoraxExam);
+document.getElementById("hypothermiaBtn").addEventListener("click",openHypothermia);
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
