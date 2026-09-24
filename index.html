@@ -165,6 +165,44 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
 }
 .atmistLink:hover{text-decoration:underline;text-underline-offset:3px;}
 
+
+/* Tunna avdelare mellan kortets rader och kolumner */
+.section{
+  border-bottom:1px solid rgba(55,65,70,.34) !important;
+}
+.section .cols{
+  column-gap:0 !important;
+}
+.section .cols > *{
+  padding-left:12px;
+  padding-right:12px;
+}
+.section .cols > *:first-child{
+  padding-left:0;
+  border-right:1px solid rgba(55,65,70,.34);
+}
+.hGrid{
+  gap:0 !important;
+}
+.hGrid > .hCol{
+  padding-left:12px !important;
+  padding-right:12px !important;
+}
+.hGrid > .hCol:first-child{
+  padding-left:0 !important;
+  border-right:1px solid rgba(55,65,70,.34);
+}
+.bottomcols{
+  gap:0 !important;
+}
+.bottomcols .smallsec{
+  border-right:1px solid rgba(55,65,70,.34) !important;
+  border-bottom:1px solid rgba(55,65,70,.34) !important;
+}
+.bottomcols .smallsec:nth-child(2n){
+  border-right:0 !important;
+}
+
 </style>
 </head>
 <body>
