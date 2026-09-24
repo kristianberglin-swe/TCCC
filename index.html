@@ -157,6 +157,14 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
   line-height:1.2!important;
 }
 
+
+.atmistLink{
+  appearance:none;border:0;background:transparent;color:inherit;
+  font:inherit;font-weight:800;cursor:pointer;width:100%;
+  padding:0;margin:0;text-align:center;
+}
+.atmistLink:hover{text-decoration:underline;text-underline-offset:3px;}
+
 </style>
 </head>
 <body>
@@ -210,7 +218,7 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
   </div>
  </section>
 
- <div class="doc">DOKUMENTERA samtliga interventioner i AT-MIST!</div>
+ <div class="doc"><button class="atmistLink" id="atmistBtn" type="button">DOKUMENTERA samtliga interventioner i AT-MIST!</button></div>
 
  <div class="bottomcols">
   <section class="smallsec pm" tabindex="0" data-key="P"><div class="title"><span class="badge" style="background:#7b5a78">P</span>Pain Management</div><div>Paracetamol – 1 g PO<br><br>Fentanyl – enligt utbildning</div></section>
@@ -292,6 +300,26 @@ function openNPA(e){
 function openRecovery(e){
  if(e) e.stopPropagation();
  showLocalVideo("Stabilt sidoläge","filmer/stabilt-sidolage.mp4",openAirway,"AIRWAY");
+}
+
+function openATMIST(e){
+ if(e)e.stopPropagation();
+ title.textContent="AT-MIST";
+ content.innerHTML=`<div class="trainingText" style="text-align:left;max-width:820px;margin:0 auto;line-height:1.5">
+   <h3 style="margin-top:0">AT-MIST</h3>
+   <p><b>(A)ge:</b> Uppskattad ålder på patienten/vuxen/barn.<br>
+   <b>(T)ime:</b> När uppstod skadan? Skrivs som tidsnummer (DDTTMM).<br>
+   <b>Namn/Befattningsnummer:</b> Vad heter den skadade? Vad har den skadade för befattningsnummer?</p>
+
+   <p><b>(M)echanism of injury:</b> Vad har orsakat skadan? (t ex trafikolycka, mina/IED osv.)<br>
+   <b>(I)njuries found:</b> Vilka skador har den skadade? (t ex skottskada höger lår)<br>
+   <b>(S)igns (and symptoms):</b> Andas patienten? Har patienten puls? Kvaliteten på dessa? Är patienten vaken eller medvetslös?<br>
+   <b>(T)reatments (given):</b> Vad har gjorts åt patientens skador? (t ex tourniquet höger lår TNR 112230, fentanylklubba 800µg TNR 112240)</p>
+
+   <p><b>Namn omhändertagare:</b> Vem har omhändertagit den skadade?</p>
+ </div>`;
+ modal.classList.add("open");
+ modal.setAttribute("aria-hidden","false");
 }
 
 function openSplinting(e){
@@ -520,6 +548,7 @@ document.getElementById("consciousnessBtn").addEventListener("click",openConscio
 document.getElementById("thoraxExamBtn").addEventListener("click",openThoraxExam);
 document.getElementById("hypothermiaBtn").addEventListener("click",openHypothermia);
 document.getElementById("splintingBtn").addEventListener("click",openSplinting);
+document.getElementById("atmistBtn").addEventListener("click",openATMIST);
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
