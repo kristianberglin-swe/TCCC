@@ -224,7 +224,17 @@ function openRecovery(e){
 
 function openShockVideo(e){
  if(e)e.stopPropagation();
- showLocalVideo("Bedöm blödningschock","filmer/blodningschock.mp4",()=>close(),"MINNESKORTET");
+ title.textContent="Bedöm blödningschock";
+ content.innerHTML=`<div class="imageWrap">
+   <img class="trainingImage" src="bilder/blodningschock.png" alt="General indicators of shock">
+ </div>
+ <div class="actions" style="margin-top:14px">
+   <button id="shockFilmBtn" type="button">▶ VISA FILM</button>
+ </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ document.getElementById("shockFilmBtn").addEventListener("click",()=>showLocalVideo(
+   "Bedöm blödningschock","filmer/blodningschock.mp4",openShockVideo,"BLÖDNINGSCHOCK"
+ ));
 }
 
 function openRespirationVideo(e){ if(e)e.stopPropagation(); showLocalVideo("R – Respiration","filmer/respiration.mp4",()=>close(),"MINNESKORTET"); }
