@@ -256,6 +256,7 @@ body{background:repeating-linear-gradient(38deg,#676b68 0px,#676b68 3px,#70746f 
 }
 @media(max-width:600px){.card{border:2px solid #a59a83!important;border-radius:5px!important}}
 
+.panelHead .close{position:relative;z-index:100;pointer-events:auto;cursor:pointer;min-width:42px;min-height:42px;}
 </style>
 </head>
 <body>
@@ -323,7 +324,7 @@ body{background:repeating-linear-gradient(38deg,#676b68 0px,#676b68 3px,#70746f 
 
 <div class="modal" id="modal" aria-hidden="true">
  <div class="panel">
-  <div class="panelHead"><h2 id="modalTitle"></h2><button class="close" aria-label="Stäng">×</button></div>
+  <div class="panelHead"><h2 id="modalTitle"></h2><button class="close" type="button" aria-label="Stäng ruta">×</button></div>
   <div class="content" id="modalContent"></div>
  </div>
 </div>
@@ -415,7 +416,7 @@ function openATMIST(e){
 
 function openSplinting(e){
  if(e)e.stopPropagation();
- showLocalVideo("Splinting","filmer/splinting.mp4",close,"MINNESKORTET");
+ showLocalVideo("Splinting","filmer/splinting.mp4",closeTrainingModal,"MINNESKORTET");
 }
 
 function openHypothermia(e){
@@ -485,7 +486,7 @@ function openPelvicInjury(e){
 
 function openExposeBleedingVideo(e){
  if(e)e.stopPropagation();
- showLocalVideo("Exponera och bedöm blödning(ar)","filmer/exponera-bedom-blodningar.mp4",()=>close(),"MINNESKORTET");
+ showLocalVideo("Exponera och bedöm blödning(ar)","filmer/exponera-bedom-blodningar.mp4",()=>closeTrainingModal(),"MINNESKORTET");
 }
 
 function openShockVideo(e){
@@ -503,7 +504,7 @@ function openShockVideo(e){
  ));
 }
 
-function openRespirationVideo(e){ if(e)e.stopPropagation(); showLocalVideo("R – Respiration","filmer/respiration.mp4",()=>close(),"MINNESKORTET"); }
+function openRespirationVideo(e){ if(e)e.stopPropagation(); showLocalVideo("R – Respiration","filmer/respiration.mp4",()=>closeTrainingModal(),"MINNESKORTET"); }
 function openNDCVideo(e){
  if(e)e.stopPropagation();
  title.textContent="Nåldekompression (NDC)";
@@ -645,7 +646,7 @@ document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
  el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openSection(el.dataset.key)}})
 });
-function close(){
+function closeTrainingModal(){
   const playingVideo=modal.querySelector("video");
   if(playingVideo){try{playingVideo.pause();playingVideo.currentTime=0;}catch(err){}}
   modal.classList.remove("open");
@@ -655,9 +656,9 @@ function close(){
 document.querySelector("#modal .close").addEventListener("click",function(e){
   e.preventDefault();
   e.stopPropagation();
-  close();
+  closeTrainingModal();
 });
-modal.addEventListener("click",function(e){if(e.target===modal)close();});
-document.addEventListener("keydown",function(e){if(e.key==="Escape")close();});
+modal.addEventListener("click",function(e){if(e.target===modal)closeTrainingModal();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeTrainingModal();});
 </script>
 </body></html>
