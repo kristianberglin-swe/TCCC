@@ -30,11 +30,11 @@ body{
 .hdr{font-size:14px;font-weight:bold;text-align:center;padding:3px;border-bottom:1px solid #777}
 .hdr.left{background:#bbb}.hdr.right{background:#ddd}
 .section{
-  border-bottom:1px solid #777; padding:7px 12px 9px; cursor:pointer;
+  border-bottom:1px solid #777; padding:7px 12px 9px; cursor:default;
   transition:.12s; min-height:128px;
 }
-.section:hover{filter:brightness(.96);box-shadow:inset 0 0 0 3px #2223}
-.section:focus{outline:3px solid #222;outline-offset:-3px}
+
+
 .m{background:linear-gradient(90deg,#fff8 0 4%,#e76b864d 4% 100%)}
 .a{background:linear-gradient(90deg,#fff8 0 4%,#77a8cf4d 4% 100%)}
 .r{background:linear-gradient(90deg,#fff8 0 4%,#a9aaa44d 4% 100%)}
@@ -50,8 +50,8 @@ body{
 ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
 .hypo{text-align:center;font-weight:bold;background:#ded1d9;padding:4px;font-size:14px}
 .doc{background:var(--yellow);text-align:center;font-weight:900;padding:5px;border-bottom:1px solid #777}
-.smallsec{padding:9px 12px;min-height:135px;border-bottom:1px solid #777;cursor:pointer}
-.smallsec:hover{box-shadow:inset 0 0 0 3px #2223}
+.smallsec{padding:9px 12px;min-height:135px;border-bottom:1px solid #777;cursor:default}
+
 .smallsec .title{font-size:16px}
 .pm{background:#d7dde1}.ab{background:#ddd}.wound{background:#d6dce0}.splint{background:#d6dce0}
 .footer{font-size:11px;text-align:right;padding:7px 10px;color:#555}
@@ -266,7 +266,7 @@ body{background:repeating-linear-gradient(38deg,#676b68 0px,#676b68 3px,#70746f 
 <style id="page-backdrop-style">
 body { background:#47513e !important; position:relative; isolation:isolate; }
 body::before { content:""; position:fixed; inset:-28px; z-index:-2;
- background:url("bakgrund.jpeg") center center / cover no-repeat;
+ background:url("m90-ripstop-material.png") center center / cover no-repeat;
  filter:blur(9px) brightness(.78) saturate(.85); pointer-events:none; }
 body::after { content:""; position:fixed; inset:0; z-index:-1;
  background:rgba(23,31,24,.18); pointer-events:none; }
@@ -278,7 +278,7 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
  <header class="top"><strong>TACTICAL TRAUMA ASSESSMENT (CLS)</strong><span class="year">2026</span><span class="flag">🇸🇪</span></header>
  <div class="cols"><div class="hdr left">UNDERSÖKNING</div><div class="hdr right">ÅTGÄRD</div></div>
 
- <section class="section m" tabindex="0" data-key="M">
+ <section class="section m">
    <div class="title"><span class="badge">M</span>Massive Hemorrhage</div>
    <div class="cols">
     <ul><li><button class="inlineLink" id="bloodSweepBtn" type="button"><b>Blodsvep</b></button><br>(nacke, axiller, ljumskar, extremiteter)</li><li>Bedöm effekt av tidigare TQ, Tamp.</li></ul>
@@ -286,7 +286,7 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
    </div>
  </section>
 
- <section class="section a" tabindex="0" data-key="A">
+ <section class="section a">
   <div class="title"><button class="inlineLink" id="airwayBtn" type="button"><span class="badge">A</span>Airway</button></div>
   <div class="cols">
    <ul><li>Kan svara / tilltal?</li><li>NEJ, (se, lyssna, känn)</li><li>Bedöm luftväg</li><li>Inspektera munhåla</li></ul>
@@ -295,7 +295,7 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
  </section>
  <div class="hypo">Överväg hypotermiprevention</div>
 
- <section class="section r" tabindex="0" data-key="R">
+ <section class="section r">
   <div class="title"><button class="inlineLink" id="respirationBtn" type="button"><span class="badge">R</span>Respiration</button></div>
   <div class="cols">
    <ul>
@@ -317,7 +317,7 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
   </div>
  </section>
 
- <section class="section c" tabindex="0" data-key="C">
+ <section class="section c">
   <div class="title"><span class="badge">C</span>Circulation</div>
   <div class="cols">
    <ul><li><button class="inlineLink" id="exposeBleedingBtn" type="button"><b>Exponera och bedöm blödning(ar)</b></button></li><li>Bedöm blödningskontroll</li><li><button class="inlineLink" id="shockBtn" type="button"><b>Bedöm blödningschock</b></button></li><li>Radialispuls, mentalstatus</li><li><button class="inlineLink" id="pelvicBtn" type="button"><b>Misstänkt bäckenskada</b></button> →</li></ul>
@@ -325,7 +325,7 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
   </div>
  </section>
 
- <section class="section h" tabindex="0" data-key="H">
+ <section class="section h">
   <div class="hGrid">
     <div class="hCol">
       <div class="title"><button class="inlineLink" id="hypothermiaBtn" type="button"><span class="badge">H</span>Hypothermia prevention</button></div>
@@ -341,12 +341,12 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
  <div class="doc"><button class="atmistLink" id="atmistBtn" type="button">DOKUMENTERA samtliga interventioner i AT-MIST!</button></div>
 
  <div class="bottomcols">
-  <section class="smallsec pm" tabindex="0" data-key="P"><div class="title"><span class="badge" style="background:#7b5a78">P</span>Pain Management</div><div>Paracetamol – 1 g PO<br><br>Fentanyl – enligt utbildning</div></section>
-  <section class="smallsec ab" tabindex="0" data-key="AB"><div class="title"><span class="badge" style="background:#244a6a">A</span>Antibiotic Administration</div></section>
-  <section class="smallsec wound" tabindex="0" data-key="W"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div>Konvertering/repositionering TQ<br>Brännskador • Sårskador<br>Amp.skador • Bukskador</div></section>
-  <section class="smallsec splint" tabindex="0" data-key="S"><div class="title"><button class="inlineLink" id="splintingBtn" type="button"><span class="badge" style="background:#315d80">S</span>Splinting</button></div><div>Avlägsna klockor, smycken<br>Distalstatus<br>Stabilisera och bandagera</div></section>
+  <section class="smallsec pm"><div class="title"><span class="badge" style="background:#7b5a78">P</span>Pain Management</div><div>Paracetamol – 1 g PO<br><br>Fentanyl – enligt utbildning</div></section>
+  <section class="smallsec ab"><div class="title"><span class="badge" style="background:#244a6a">A</span>Antibiotic Administration</div></section>
+  <section class="smallsec wound"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div>Konvertering/repositionering TQ<br>Brännskador • Sårskador<br>Amp.skador • Bukskador</div></section>
+  <section class="smallsec splint"><div class="title"><button class="inlineLink" id="splintingBtn" type="button"><span class="badge" style="background:#315d80">S</span>Splinting</button></div><div>Avlägsna klockor, smycken<br>Distalstatus<br>Stabilisera och bandagera</div></section>
  </div>
- <div class="tap">KLICKA PÅ ETT MOMENT FÖR ATT TRÄNA</div>
+ <div class="tap">KLICKA PÅ UNDERSTRUKNA MOMENT FÖR ATT VISA UTBILDNINGSMATERIAL</div>
  <div class="footer">TCCC / CLS – interaktiv träningsversion</div>
 </main>
 
@@ -358,17 +358,6 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
 </div>
 
 <script>
-const data={
- M:["M – Massive Hemorrhage","Träna på att identifiera och hantera massiv blödning.","Blodsvep • exponera skadan • blödningskontroll • tourniquet • tamponering"],
- A:["A – Airway","Träna på systematisk kontroll och åtgärd av luftvägen.","Tilltal • se/lyssna/känn • inspektion • patientläge • hak-/käklyft • NPA"],
- R:["R – Respiration","Träna på undersökning av thorax och bedömning av respiration.","Thoraxundersökning • andningsfrekvens • öppna thoraxskador • fortlöpande omvärdering"],
- C:["C – Circulation","Träna på cirkulationsbedömning och fortsatt blödningskontroll.","Blödningar • radialispuls • mentalstatus • bäckenskada • kontroll av tidigare åtgärder"],
- H:["H – Hypothermia prevention / Head injuries","Träna hypotermiprevention och bedömning av huvudskador.","Värme • skydd mot exponering • medvetandegrad • TBI • ögonskador"],
- P:["Pain Management","Avsnitt för utbildning i smärtbehandling enligt gällande utbildningsunderlag.","Här lägger vi in text och eventuell instruktionsfilm."],
- AB:["Antibiotic Administration","Avsnitt för antibiotika enligt gällande utbildningsunderlag.","Här lägger vi in rätt preparat, indikationer och utbildningsmaterial."],
- W:["W – Wound Management","Träna fortsatt sårhantering.","TQ-konvertering/repositionering • brännskador • sårskador • amputationsskador • bukskador"],
- S:["S – Splinting","Träna immobilisering och kontroll före/efter åtgärd.","Avlägsna klockor/smycken • distalstatus • stabilisera • bandagera"]
-};
 const modal=document.getElementById("modal"), title=document.getElementById("modalTitle"), content=document.getElementById("modalContent");
 
 function closeTrainingModal(){
@@ -381,17 +370,6 @@ function closeTrainingModal(){
 modal.querySelector(".close").addEventListener("click",e=>{e.preventDefault();e.stopPropagation();closeTrainingModal();});
 modal.addEventListener("click",e=>{if(e.target===modal)closeTrainingModal();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.classList.contains("open"))closeTrainingModal();});
-
-function openSection(key){
- const d=data[key]; if(!d)return;
- title.textContent=d[0];
- content.innerHTML=`<h3>LÄR DIG</h3><p>${d[1]}</p>
- <div class="placeholder"><b>TEXT / BILD / VIDEO</b><br><br>Plats för utbildningsmaterial för detta moment.</div>
- <h3>Moment</h3><p>${d[2]}</p>
- <div class="actions"><button onclick="alert('ÖVA-läget byggs i nästa version')">ÖVA</button><button onclick="alert('Video läggs in när materialet är valt')">VISA HUR</button></div>
- <div class="note">Version 1 är uppbyggd som ett klickbart digitalt minneskort. Utbildningsinnehållet kan fyllas på moment för moment.</div>`;
- modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
-}
 
 function showLocalVideo(titleText, src, backFn, backLabel){
  title.textContent=titleText;
@@ -682,9 +660,5 @@ document.getElementById("hypothermiaBtn")?.addEventListener("click",openHypother
 document.getElementById("splintingBtn")?.addEventListener("click",openSplinting);
 document.getElementById("atmistBtn")?.addEventListener("click",openATMIST);
 
-document.querySelectorAll("[data-key]").forEach(el=>{
- el.addEventListener("click",()=>openSection(el.dataset.key));
- el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openSection(el.dataset.key)}})
-});
 </script>
 </body></html>
