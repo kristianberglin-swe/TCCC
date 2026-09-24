@@ -138,23 +138,12 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
 .actions button:hover{filter:brightness(1.08);}
 
 
-/* H-raden: rubrikerna ska börja exakt på samma höjd */
-.band.h .cols{align-items:start !important;}
-.band.h .cols > div{padding-top:0 !important;margin-top:0 !important;}
-.band.h .title{margin-top:0 !important;padding-top:0 !important;line-height:1.2 !important;}
-.band.h .title button{margin-top:0 !important;padding-top:0 !important;line-height:1.2 !important;}
-
-
-/* PAWS-rubriker: samma typografi */
-.paws .title, .pawsTitle, .paws .sectionTitle,
-.pain-management-title{
-  font-family:inherit !important;
-  font-size:inherit !important;
-  font-weight:700 !important;
-  letter-spacing:normal !important;
-  text-transform:none !important;
-}
-
+/* Korrigeringar */
+.hTwoCols{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.hTwoCols>div,.hTwoCols .title{margin-top:0!important;padding-top:0!important}
+.hTwoCols ul{margin-top:6px}
+.smallsec.pm>.title{font-size:16px!important;font-weight:800!important;line-height:1.15!important;font-family:Arial,Helvetica,sans-serif!important}
+@media(max-width:650px){.hTwoCols{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -206,7 +195,7 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
  <div class="doc">DOKUMENTERA samtliga interventioner i AT-MIST!</div>
 
  <div class="bottomcols">
-  <section class="smallsec pm" tabindex="0" data-key="P"><div class="title" class="pain-management-title">Pain Management</div><div>Paracetamol – 1 g PO<br><br>Fentanyl – enligt utbildning</div></section>
+  <section class="smallsec pm" tabindex="0" data-key="P"><div class="title">Pain Management</div><div>Paracetamol – 1 g PO<br><br>Fentanyl – enligt utbildning</div></section>
   <section class="smallsec ab" tabindex="0" data-key="AB"><div class="title"><span class="badge" style="background:#244a6a">A</span>Antibiotic Administration</div></section>
   <section class="smallsec wound" tabindex="0" data-key="W"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div>Konvertering/repositionering TQ<br>Brännskador • Sårskador<br>Amp.skador • Bukskador</div></section>
   <section class="smallsec splint" tabindex="0" data-key="S"><div class="title"><span class="badge" style="background:#315d80">S</span>Splinting</div><div>Avlägsna klockor, smycken<br>Distalstatus<br>Stabilisera och bandagera</div></section>
@@ -287,15 +276,6 @@ function openRecovery(e){
  showLocalVideo("Stabilt sidoläge","filmer/stabilt-sidolage.mp4",openAirway,"AIRWAY");
 }
 
-
-function closeTrainingModal(){
- const v=content ? content.querySelector("video") : null;
- if(v){ try{v.pause(); v.currentTime=0;}catch(err){} }
- modal.classList.remove("open");
- modal.setAttribute("aria-hidden","true");
- if(content) content.innerHTML="";
-}
-
 function openHypothermia(e){
  if(e)e.stopPropagation();
  title.textContent="Hypothermia prevention";
@@ -363,7 +343,7 @@ function openPelvicInjury(e){
 
 function openExposeBleedingVideo(e){
  if(e)e.stopPropagation();
- showLocalVideo("Exponera och bedöm blödning(ar)","filmer/exponera-bedom-blodningar.mp4",closeTrainingModal,"MINNESKORTET");
+ showLocalVideo("Exponera och bedöm blödning(ar)","filmer/exponera-bedom-blodningar.mp4",()=>close(),"MINNESKORTET");
 }
 
 function openShockVideo(e){
@@ -381,7 +361,7 @@ function openShockVideo(e){
  ));
 }
 
-function openRespirationVideo(e){ if(e)e.stopPropagation(); showLocalVideo("R – Respiration","filmer/respiration.mp4",closeTrainingModal,"MINNESKORTET"); }
+function openRespirationVideo(e){ if(e)e.stopPropagation(); showLocalVideo("R – Respiration","filmer/respiration.mp4",()=>close(),"MINNESKORTET"); }
 function openNDCVideo(e){
  if(e)e.stopPropagation();
  title.textContent="Nåldekompression (NDC)";
@@ -516,15 +496,24 @@ document.getElementById("pelvicBtn").addEventListener("click",openPelvicInjury);
 document.getElementById("consciousnessBtn").addEventListener("click",openConsciousness);
 document.getElementById("thoraxExamBtn").addEventListener("click",openThoraxExam);
 document.getElementById("hypothermiaBtn").addEventListener("click",openHypothermia);
-const modalCloseBtn=document.querySelector(".close, .closeBtn, [data-close], #closeBtn");
-if(modalCloseBtn) modalCloseBtn.addEventListener("click",closeTrainingModal);
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
  el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openSection(el.dataset.key)}})
 });
-function close(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true")}
-document.querySelector(".close").onclick=close;
+function close(){
+ const v=content.querySelector("video");
+ if(v){try{v.pause();v.currentTime=0}catch(err){}}
+ modal.classList.remove("open");
+ modal.setAttribute("aria-hidden","true");
+ content.innerHTML="";
+}
+const closeButton=document.querySelector("#modal .close");
+if(closeButton){
+ closeButton.addEventListener("click",function(e){
+   e.preventDefault(); e.stopPropagation(); close();
+ });
+}
 modal.addEventListener("click",e=>{if(e.target===modal)close()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
 </script>
