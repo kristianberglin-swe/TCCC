@@ -115,10 +115,10 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
  <div class="hypo">Överväg hypotermiprevention</div>
 
  <section class="section r" tabindex="0" data-key="R">
-  <div class="title"><span class="badge">R</span>Respiration</div>
+  <div class="title"><button class="inlineLink" id="respirationBtn" type="button"><span class="badge">R</span>Respiration</button></div>
   <div class="cols">
    <ul><li>Thoraxundersökning<br>(fram, bak, sidor, axiller, axlar)</li><li>Bedöm respiration</li><li>Bedöm andningsfrekvens (AF)</li></ul>
-   <ul><li>Thoraxförband över öppna skador</li><li><b>Vid försämring:</b> lätta/torka rent, återförslut</li><li>Överväg nåldekompression (NDC)</li></ul>
+   <ul><li><button class="inlineLink" id="thoraxBtn" type="button"><b>Thoraxförband</b></button> över öppna skador</li><li><b>Vid försämring:</b> lätta/torka rent, återförslut</li><li>Överväg <button class="inlineLink" id="ndcBtn" type="button"><b>nåldekompression (NDC)</b></button></li></ul>
   </div>
  </section>
 
@@ -221,6 +221,10 @@ function openRecovery(e){
  if(e) e.stopPropagation();
  showLocalVideo("Stabilt sidoläge","filmer/stabilt-sidolage.mp4",openAirway,"AIRWAY");
 }
+
+function openRespirationVideo(e){ if(e)e.stopPropagation(); showLocalVideo("R – Respiration","filmer/respiration.mp4",()=>close(),"MINNESKORTET"); }
+function openNDCVideo(e){ if(e)e.stopPropagation(); showLocalVideo("Nåldekompression (NDC)","filmer/naldekompression.mp4",()=>close(),"MINNESKORTET"); }
+function openThoraxVideo(e){ if(e)e.stopPropagation(); showLocalVideo("Thoraxförband","filmer/thoraxforband.mp4",()=>close(),"MINNESKORTET"); }
 
 function openTamponering(e){
  if(e) e.stopPropagation();
@@ -330,6 +334,9 @@ document.getElementById("npaBtn").addEventListener("click",openNPA);
 document.getElementById("npaBtn").addEventListener("keydown",e=>e.stopPropagation());
 document.getElementById("recoveryBtn").addEventListener("click",openRecovery);
 document.getElementById("recoveryBtn").addEventListener("keydown",e=>e.stopPropagation());
+document.getElementById("respirationBtn").addEventListener("click",openRespirationVideo);
+document.getElementById("ndcBtn").addEventListener("click",openNDCVideo);
+document.getElementById("thoraxBtn").addEventListener("click",openThoraxVideo);
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
