@@ -106,10 +106,10 @@ ul{margin:3px 0 0 21px;padding:0;font-size:14px;line-height:1.25}
  </section>
 
  <section class="section a" tabindex="0" data-key="A">
-  <div class="title"><span class="badge">A</span>Airway</div>
+  <div class="title"><button class="inlineLink" id="airwayBtn" type="button"><span class="badge">A</span>Airway</button></div>
   <div class="cols">
    <ul><li>Kan svara / tilltal?</li><li>NEJ, (se, lyssna, känn)</li><li>Bedöm luftväg</li><li>Inspektera munhåla</li></ul>
-   <ul><li>Optimera patientläge</li><li>Rensa munhåla</li><li>Haklyft/käklyft</li><li>Stabilt sidoläge</li><li>Nästub (NPA)</li></ul>
+   <ul><li>Optimera patientläge</li><li>Rensa munhåla</li><li><button class="inlineLink" id="jawLiftBtn" type="button"><b>Haklyft/käklyft</b></button></li><li><button class="inlineLink" id="recoveryBtn" type="button"><b>Stabilt sidoläge</b></button></li><li><button class="inlineLink" id="npaBtn" type="button"><b>Nästub (NPA)</b></button></li></ul>
   </div>
  </section>
  <div class="hypo">Överväg hypotermiprevention</div>
@@ -179,6 +179,47 @@ function openSection(key){
  <div class="actions"><button onclick="alert('ÖVA-läget byggs i nästa version')">ÖVA</button><button onclick="alert('Video läggs in när materialet är valt')">VISA HUR</button></div>
  <div class="note">Version 1 är uppbyggd som ett klickbart digitalt minneskort. Utbildningsinnehållet kan fyllas på moment för moment.</div>`;
  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+}
+
+function showLocalVideo(titleText, src, backFn, backLabel){
+ title.textContent=titleText;
+ content.innerHTML=`<div class="localVideoBox">
+   <video id="activeTrainingVideo" controls autoplay playsinline preload="auto">
+     <source src="${src}" type="video/mp4">
+     Din webbläsare kan inte spela upp MP4-video.
+   </video>
+ </div>
+ <div class="actions" style="margin-top:14px">
+   <button type="button" id="videoBackBtn">← TILLBAKA TILL ${backLabel}</button>
+ </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ document.getElementById("videoBackBtn").addEventListener("click",backFn);
+ const v=document.getElementById("activeTrainingVideo");
+ if(v){ v.currentTime=0; const p=v.play(); if(p && p.catch) p.catch(()=>{}); }
+}
+
+function openAirway(e){
+ if(e) e.stopPropagation();
+ title.textContent="A – Airway";
+ content.innerHTML=`<div class="imageWrap">
+   <img class="trainingImage" src="bilder/airway.png" alt="Airway Management – utbildningsbild">
+ </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+}
+
+function openJawLift(e){
+ if(e) e.stopPropagation();
+ showLocalVideo("Haklyft/käklyft","filmer/haklyft-kaklyft.mp4",openAirway,"AIRWAY");
+}
+
+function openNPA(e){
+ if(e) e.stopPropagation();
+ showLocalVideo("Nästub (NPA)","filmer/nastub-npa.mp4",openAirway,"AIRWAY");
+}
+
+function openRecovery(e){
+ if(e) e.stopPropagation();
+ showLocalVideo("Stabilt sidoläge","filmer/stabilt-sidolage.mp4",openAirway,"AIRWAY");
 }
 
 function openTamponering(e){
@@ -281,6 +322,14 @@ document.getElementById("tourniquetBtn").addEventListener("click",openTourniquet
 document.getElementById("tourniquetBtn").addEventListener("keydown",e=>e.stopPropagation());
 document.getElementById("tamponeringBtn").addEventListener("click",openTamponering);
 document.getElementById("tamponeringBtn").addEventListener("keydown",e=>e.stopPropagation());
+document.getElementById("airwayBtn").addEventListener("click",openAirway);
+document.getElementById("airwayBtn").addEventListener("keydown",e=>e.stopPropagation());
+document.getElementById("jawLiftBtn").addEventListener("click",openJawLift);
+document.getElementById("jawLiftBtn").addEventListener("keydown",e=>e.stopPropagation());
+document.getElementById("npaBtn").addEventListener("click",openNPA);
+document.getElementById("npaBtn").addEventListener("keydown",e=>e.stopPropagation());
+document.getElementById("recoveryBtn").addEventListener("click",openRecovery);
+document.getElementById("recoveryBtn").addEventListener("keydown",e=>e.stopPropagation());
 
 document.querySelectorAll("[data-key]").forEach(el=>{
  el.addEventListener("click",()=>openSection(el.dataset.key));
