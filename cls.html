@@ -346,9 +346,9 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
  <div class="doc"><button class="atmistLink" id="atmistBtn" type="button">DOKUMENTERA samtliga interventioner i AT-MIST!</button></div>
 
  <div class="bottomcols">
-  <section class="smallsec pm"><div class="title"><span class="badge" style="background:#7b5a78">P</span>Pain Management</div><div>Paracetamol – 1 g PO<br><br>Fentanyl – enligt utbildning</div></section>
+  <section class="smallsec pm"><div class="title"><span class="badge" style="background:#7b5a78">P</span>Pain Management</div><div>Paracetamol – 1 g PO<br><br><button class="inlineLink" id="fentanylBtn" type="button">Fentanyl – enligt utbildning</button></div></section>
   <section class="smallsec ab"><div class="title"><span class="badge" style="background:#244a6a">A</span>Antibiotic Administration</div></section>
-  <section class="smallsec wound"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div>Konvertering/repositionering TQ<br><button class="inlineLink" id="burnsBtn" type="button">Brännskador</button> • Sårskador<br>Amp.skador • Bukskador</div></section>
+  <section class="smallsec wound"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div>Konvertering/repositionering TQ<br><button class="inlineLink" id="burnsBtn" type="button">Brännskador</button> • Sårskador<br>Amp.skador • <button class="inlineLink" id="abdomenBtn" type="button">Bukskador</button></div></section>
   <section class="smallsec splint"><div class="title"><button class="inlineLink" id="splintingBtn" type="button"><span class="badge" style="background:#315d80">S</span>Splinting</button></div><div>Avlägsna klockor, smycken<br>Distalstatus<br>Stabilisera och bandagera</div></section>
  </div>
  <div class="tap">KLICKA PÅ UNDERSTRUKNA MOMENT FÖR ATT VISA UTBILDNINGSMATERIAL</div>
@@ -437,18 +437,34 @@ function openATMIST(e){
  modal.setAttribute("aria-hidden","false");
 }
 
-function openBurnsVideo(e){
- if(e)e.stopPropagation();
- showLocalVideo("Brännskador","filmer/brannskador.mp4",closeTrainingModal,"MINNESKORTET");
+function showSharedImages(heading, imageList, videoSrc){
+ title.textContent=heading;
+ content.replaceChildren();
+ const wrap=document.createElement('div');wrap.className='imageWrap';
+ imageList.forEach(([src,alt])=>{
+  const img=document.createElement('img');img.className='trainingImage';img.src=src;img.alt=alt;
+  img.style.cssText='display:block;width:100%;max-width:1050px;height:auto;margin:0 auto 18px';wrap.appendChild(img);
+ });
+ content.appendChild(wrap);
+ if(videoSrc){
+  const actions=document.createElement('div');actions.className='actions';actions.style.marginTop='14px';
+  const btn=document.createElement('button');btn.type='button';btn.textContent='▶ VISA FILM';
+  btn.addEventListener('click',()=>showLocalVideo(heading,videoSrc,()=>showSharedImages(heading,imageList,videoSrc),'BILDER'));
+  actions.appendChild(btn);content.appendChild(actions);
+ }
+ modal.classList.add('open');modal.setAttribute('aria-hidden','false');
 }
-function openEyeShieldVideo(e){
- if(e)e.stopPropagation();
- showLocalVideo("Ögonskydd","filmer/ogonskydd.mp4",closeTrainingModal,"MINNESKORTET");
-}
-function openSplinting(e){
- if(e)e.stopPropagation();
- showLocalVideo("Splinting","filmer/splinting.mp4",closeTrainingModal,"MINNESKORTET");
-}
+function openFentanyl(e){if(e)e.stopPropagation();showSharedImages('Fentanyl',[
+ ['bilder/fentanyl-information-asm.png','Fentanyl – information'],
+ ['bilder/fentanyl-teknik-asm.png','Fentanyl – teknik']]);}
+function openAbdomen(e){if(e)e.stopPropagation();showSharedImages('Bukskador',[
+ ['bilder/bukskador-asm.png','Bukskador – utbildningsbild']]);}
+function openBurnsVideo(e){if(e)e.stopPropagation();showSharedImages('Brännskador',[
+ ['bilder/brannskador-asm.png','Brännskador – utbildningsbild']],'filmer/brannskador.mp4');}
+function openEyeShieldVideo(e){if(e)e.stopPropagation();showSharedImages('Ögonskador',[
+ ['bilder/ogonskador-asm.png','Ögonskador – utbildningsbild']],'filmer/ogonskydd.mp4');}
+function openSplinting(e){if(e)e.stopPropagation();showSharedImages('Splinting',[
+ ['bilder/splinting-asm.png','Splinting – stabilisering']],'filmer/splinting.mp4');}
 
 function openHypothermia(e){
  if(e)e.stopPropagation();
@@ -646,6 +662,8 @@ document.getElementById("consciousnessBtn")?.addEventListener("click",openConsci
 document.getElementById("thoraxExamBtn")?.addEventListener("click",openThoraxExam);
 document.getElementById("hypothermiaBtn")?.addEventListener("click",openHypothermia);
 document.getElementById("splintingBtn")?.addEventListener("click",openSplinting);
+document.getElementById("fentanylBtn")?.addEventListener("click",openFentanyl);
+document.getElementById("abdomenBtn")?.addEventListener("click",openAbdomen);
 document.getElementById("atmistBtn")?.addEventListener("click",openATMIST);
 document.getElementById("burnsBtn")?.addEventListener("click",openBurnsVideo);
 document.getElementById("eyeShieldBtn")?.addEventListener("click",openEyeShieldVideo);

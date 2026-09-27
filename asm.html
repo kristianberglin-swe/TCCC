@@ -14,7 +14,7 @@
 <section class="section m"><div class="cols"><div><div class="band"><span class="badge">M</span>Massive Bleeding</div><div class="cell"><ul><li><button class="asmLink" type="button" id="bloodSweepBtn">Blodsvep</button><br><span class="small">(nacke, axiller, ljumskar, extremiteter)</span></li><li>Bedöm effekt av tidigare TQ, Tamp.</li><li>Vid behov spänn tidigare satt TQ</li></ul></div></div><div><div class="band">&nbsp;</div><div class="cell"><ul><li><button class="asmLink" type="button" id="exposeBleedingBtn">Exponera sår, klipp kläder vid behov</button></li><li><button class="asmLink" type="button" id="tourniquetBtn">Tourniquet</button>, <u>notera tid(er)</u></li><li><button class="asmLink" type="button" id="tamponeringBtn">Tamponering</button><ul><li>Säkras med tryckförband</li></ul></li></ul></div></div></div></section>
 <section class="section a"><div class="cols"><div><div class="band"><span class="badge">A</span><button class="asmLink" type="button" id="airwayBtn">Airway</button></div><div class="cell"><ul><li>Kan svara på tilltal?<ul><li>NEJ, (se, lyssna, känn)</li><li>Inspektera munhåla</li></ul></li></ul></div></div><div><div class="band">&nbsp;</div><div class="cell"><ul><li>Låt vaken skadad positionera sig själv</li><li>Sidoläge/bukläge och rensa munhåla</li><li><button class="asmLink" type="button" id="jawLiftBtn">Haklyft/käklyft</button></li><li><button class="asmLink" type="button" id="recoveryBtn">Stabilt sidoläge</button></li></ul></div></div></div></section>
 <section class="section h"><div class="cols"><div><div class="band"><span class="badge">H</span><button class="asmLink" type="button" id="hypothermiaBtn">Hypothermia</button></div><div class="cell"><ul><li>Förhindra avkylning</li><li>Skydda från: Markkyla – Väder – Vind</li></ul></div></div><div><div class="band">&nbsp;</div><div class="cell"><ul><li>Byt blöta kläder mot torra</li><li>Tillför aktiv värme</li><li><button class="asmLink" type="button" id="consciousnessBtn">Bedöm medvetandegrad enl. A C V P U</button></li></ul></div></div></div></section>
-<div class="cols"><section class="section paws p"><div class="band"><span class="badge">P</span>Pain Management</div><div class="pmline">Paracetamol – 1 g PO</div><div class="fentanyl">Fentanyl – 800 µg OTFC, PO<br><span class="small">(kan upprepas ≥ 15 min)</span></div></section><section class="section paws ab"><div class="band"><span class="badge">A</span>Antibiotic Administration</div></section><section class="section paws w"><div class="band"><span class="badge">W</span>Wound Management</div><div class="cell"><ul><li><button class="asmLink" type="button" id="burnsBtn">Brännskador</button></li><li>Amp.skador</li><li>Huvudskador</li><li>Sårskador</li><li><button class="asmLink" type="button" id="eyeShieldBtn">Ögonskador</button></li><li>Bukskador</li></ul></div></section><section class="section paws s"><div class="band"><span class="badge">S</span><button class="asmLink" type="button" id="splintingBtn">Splinting</button></div><div class="cell"><ul><li>Avlägsna klockor, smycken</li><li>Stabilisera och bandagera</li></ul></div></section></div>
+<div class="cols"><section class="section paws p"><div class="band"><span class="badge">P</span>Pain Management</div><div class="pmline">Paracetamol – 1 g PO</div><div class="fentanyl"><button class="asmLink" type="button" id="fentanylBtn">Fentanyl – 800 µg OTFC, PO</button><br><span class="small">(kan upprepas ≥ 15 min)</span></div></section><section class="section paws ab"><div class="band"><span class="badge">A</span>Antibiotic Administration</div></section><section class="section paws w"><div class="band"><span class="badge">W</span>Wound Management</div><div class="cell"><ul><li><button class="asmLink" type="button" id="burnsBtn">Brännskador</button></li><li>Amp.skador</li><li>Huvudskador</li><li>Sårskador</li><li><button class="asmLink" type="button" id="eyeShieldBtn">Ögonskador</button></li><li><button class="asmLink" type="button" id="abdomenBtn">Bukskador</button></li></ul></div></section><section class="section paws s"><div class="band"><span class="badge">S</span><button class="asmLink" type="button" id="splintingBtn">Splinting</button></div><div class="cell"><ul><li>Avlägsna klockor, smycken</li><li>Stabilisera och bandagera</li></ul></div></section></div>
 <div class="black">FÖRBEREDELSER FÖR AVTRANSPORT (TACEVAC)</div><div class="evac"><label><input type="checkbox">Skriv tider på TQ</label><label><input type="checkbox"><button class="asmLink" type="button" id="atmistBtn">Dokumentera AT-MIST enl. SCCC</button></label><label><input type="checkbox"><strong style="color:#db2e36">Patron ur!</strong> Avlägsna ammunition &amp; sprängeffekter</label><label><input type="checkbox">Förbered bår &amp; bårbärare</label><label><input type="checkbox">Flytta till samlingsplats</label><label><input type="checkbox">Invisningspost</label><label><input type="checkbox">Beredd överlämningsrapportera enl. AT-MIST</label></div><div class="reeval">REVALUERA samtliga interventioner enl. MA-H.</div><div class="foot">TCCC – ASM | Minneskort för repetition</div></main><div class="modal" id="modal" aria-hidden="true"><div class="panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="panelHead"><h2 id="modalTitle"></h2><button class="close" type="button" aria-label="Stäng ruta">×</button></div><div class="content" id="modalContent"></div></div></div><script>
 const modal=document.getElementById("modal"), title=document.getElementById("modalTitle"), content=document.getElementById("modalContent");
 
@@ -90,17 +90,36 @@ function openATMIST(e){
  modal.setAttribute("aria-hidden","false");
 }
 
+function showAsmImages(heading, imageList, videoSrc){
+ title.textContent=heading;
+ content.replaceChildren();
+ const wrap=document.createElement('div'); wrap.className='imageWrap';
+ imageList.forEach(([src,alt])=>{const img=document.createElement('img');img.className='trainingImage';img.src=src;img.alt=alt;img.style.cssText='display:block;width:100%;max-width:1050px;height:auto;margin:0 auto 18px';wrap.appendChild(img)});
+ content.appendChild(wrap);
+ if(videoSrc){
+  const actions=document.createElement('div');actions.className='actions';actions.style.marginTop='14px';
+  const btn=document.createElement('button');btn.type='button';btn.textContent='▶ VISA FILM';
+  btn.addEventListener('click',()=>showLocalVideo(heading,videoSrc,()=>showAsmImages(heading,imageList,videoSrc),'BILDER'));
+  actions.appendChild(btn);content.appendChild(actions);
+ }
+ modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+}
+function openFentanyl(e){if(e)e.stopPropagation();showAsmImages('Fentanyl',[
+ ['bilder/fentanyl-information-asm.png','Fentanyl – information'],
+ ['bilder/fentanyl-teknik-asm.png','Fentanyl – teknik']]);}
+function openAbdomen(e){if(e)e.stopPropagation();showAsmImages('Bukskador',[
+ ['bilder/bukskador-asm.png','Bukskador – utbildningsbild']]);}
 function openBurnsVideo(e){
  if(e)e.stopPropagation();
- showLocalVideo("Brännskador","filmer/brannskador.mp4",closeTrainingModal,"MINNESKORTET");
+ showAsmImages("Brännskador",[["bilder/brannskador-asm.png","Brännskador – utbildningsbild"]],"filmer/brannskador.mp4");
 }
 function openEyeShieldVideo(e){
  if(e)e.stopPropagation();
- showLocalVideo("Ögonskydd","filmer/ogonskydd.mp4",closeTrainingModal,"MINNESKORTET");
+ showAsmImages("Ögonskador",[["bilder/ogonskador-asm.png","Ögonskador – utbildningsbild"]],"filmer/ogonskydd.mp4");
 }
 function openSplinting(e){
  if(e)e.stopPropagation();
- showLocalVideo("Splinting","filmer/splinting.mp4",closeTrainingModal,"MINNESKORTET");
+ showAsmImages("Splinting",[["bilder/splinting-asm.png","Splinting – stabilisering"]],"filmer/splinting.mp4");
 }
 
 function openHypothermia(e){
@@ -299,6 +318,8 @@ document.getElementById("consciousnessBtn")?.addEventListener("click",openConsci
 document.getElementById("thoraxExamBtn")?.addEventListener("click",openThoraxExam);
 document.getElementById("hypothermiaBtn")?.addEventListener("click",openHypothermia);
 document.getElementById("splintingBtn")?.addEventListener("click",openSplinting);
+document.getElementById("fentanylBtn")?.addEventListener("click",openFentanyl);
+document.getElementById("abdomenBtn")?.addEventListener("click",openAbdomen);
 document.getElementById("atmistBtn")?.addEventListener("click",openATMIST);
 document.getElementById("burnsBtn")?.addEventListener("click",openBurnsVideo);
 document.getElementById("eyeShieldBtn")?.addEventListener("click",openEyeShieldVideo);
