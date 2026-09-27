@@ -287,7 +287,7 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
    <div class="title"><button class="inlineLink" id="massiveVideoBtn" type="button"><span class="badge">M</span>Massive Hemorrhage</button></div>
    <div class="cols">
     <ul><li><button class="inlineLink" id="bloodSweepBtn" type="button"><b>Blodsvep</b></button><br>(nacke, axiller, ljumskar, extremiteter)</li><li>Bedöm effekt av tidigare TQ, Tamp.</li></ul>
-    <ul><li>Exponera sår, klipp kläder vid behov</li><li><button class="inlineLink" id="tourniquetBtn" type="button"><b>Tourniquet</b></button>, notera tid(er)</li><li><button class="inlineLink" id="tamponeringBtn" type="button"><b>Tamponering</b></button></li></ul>
+    <ul><li>Exponera sår, klipp kläder vid behov</li><li><button class="inlineLink" id="tourniquetBtn" type="button"><b>Tourniquet</b></button>, notera tid(er)</li><li><button class="inlineLink" id="tamponeringBtn" type="button"><b>Tamponering</b></button><ul><li><button class="inlineLink" id="tryckforbandBtn" type="button"><b>Säkra med tryckförband</b></button></li></ul></li></ul>
    </div>
  </section>
 
@@ -615,6 +615,19 @@ function openThoraxVideo(e){
  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
  document.getElementById("thoraxFilmBtn").addEventListener("click",()=>showLocalVideo("Thoraxförband","filmer/thoraxforband.mp4",openThoraxVideo,"THORAXFÖRBAND"));
 }
+
+function openTryckforband(e){
+ if(e)e.stopPropagation();
+ title.textContent="Säkra med tryckförband";
+ content.innerHTML=`<div class="imageWrap">
+ <img class="trainingImage" src="bilder/tryckforband_allmant.png" alt="Tryckförband – material och teknik" style="display:block;width:100%;height:auto;margin-bottom:14px">
+ <img class="trainingImage" src="bilder/tryckforband_hals.png" alt="Tryckförband – hals" style="display:block;width:100%;height:auto;margin-bottom:14px">
+ <img class="trainingImage" src="bilder/tryckforband_axel.png" alt="Tryckförband – axel och armhåla" style="display:block;width:100%;height:auto;margin-bottom:14px">
+ <img class="trainingImage" src="bilder/tryckforband_ljumske.png" alt="Tryckförband – ljumske och säte" style="display:block;width:100%;height:auto">
+ </div>`;
+ modal.classList.add("open");modal.setAttribute("aria-hidden","false");
+}
+document.getElementById("tryckforbandBtn")?.addEventListener("click",openTryckforband);
 
 function openTamponering(e){
  if(e) e.stopPropagation();
