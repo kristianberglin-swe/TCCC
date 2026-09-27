@@ -284,7 +284,7 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
  <div class="cols"><div class="hdr left">UNDERSÖKNING</div><div class="hdr right">ÅTGÄRD</div></div>
 
  <section class="section m">
-   <div class="title"><span class="badge">M</span>Massive Hemorrhage</div>
+   <div class="title"><button class="inlineLink" id="massiveVideoBtn" type="button"><span class="badge">M</span>Massive Hemorrhage</button></div>
    <div class="cols">
     <ul><li><button class="inlineLink" id="bloodSweepBtn" type="button"><b>Blodsvep</b></button><br>(nacke, axiller, ljumskar, extremiteter)</li><li>Bedöm effekt av tidigare TQ, Tamp.</li></ul>
     <ul><li>Exponera sår, klipp kläder vid behov</li><li><button class="inlineLink" id="tourniquetBtn" type="button"><b>Tourniquet</b></button>, notera tid(er)</li><li><button class="inlineLink" id="tamponeringBtn" type="button"><b>Tamponering</b></button></li></ul>
@@ -348,7 +348,7 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
  <div class="bottomcols">
   <section class="smallsec pm"><div class="title"><span class="badge" style="background:#7b5a78">P</span>Pain Management</div><div>Paracetamol – 1 g PO<br><br><button class="inlineLink" id="fentanylBtn" type="button">Fentanyl – enligt utbildning</button></div></section>
   <section class="smallsec ab"><div class="title"><span class="badge" style="background:#244a6a">A</span>Antibiotic Administration</div></section>
-  <section class="smallsec wound"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div>Konvertering/repositionering TQ<br><button class="inlineLink" id="burnsBtn" type="button">Brännskador</button> • Sårskador<br>Amp.skador • <button class="inlineLink" id="abdomenBtn" type="button">Bukskador</button></div></section>
+  <section class="smallsec wound"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div><button class="inlineLink" id="convertBtn" type="button">Konvertering TQ</button> / <button class="inlineLink" id="repositionBtn" type="button">Repositionering TQ</button><br><button class="inlineLink" id="burnsBtn" type="button">Brännskador</button> • Sårskador<br>Amp.skador • <button class="inlineLink" id="abdomenBtn" type="button">Bukskador</button></div></section>
   <section class="smallsec splint"><div class="title"><button class="inlineLink" id="splintingBtn" type="button"><span class="badge" style="background:#315d80">S</span>Splinting</button></div><div>Avlägsna klockor, smycken<br>Distalstatus<br>Stabilisera och bandagera</div></section>
  </div>
  <div class="tap">KLICKA PÅ UNDERSTRUKNA MOMENT FÖR ATT VISA UTBILDNINGSMATERIAL</div>
@@ -391,6 +391,50 @@ function showLocalVideo(titleText, src, backFn, backLabel){
  document.getElementById("videoBackBtn")?.addEventListener("click",backFn);
  const v=document.getElementById("activeTrainingVideo");
  if(v){ v.currentTime=0; const p=v.play(); if(p && p.catch) p.catch(()=>{}); }
+}
+
+
+function showTechnique(titleText, body){
+ title.textContent=titleText;
+ content.innerHTML='<div class="trainingText" style="text-align:left;max-width:850px;margin:0 auto;line-height:1.55">'+body+'</div>';
+ modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+}
+function openConversion(e){
+ if(e)e.stopPropagation();
+ showTechnique('Konvertering av tourniquet', `
+ <h3>Teknik</h3><h4>Flera omhändertagare</h4><ol>
+ <li>Exponera hela såret och rengör sårskadan (om inte redan gjort). Klipp kläder vid behov.</li>
+ <li>Tamponera sårskadan med riktat tryck mot den mest sannolika blödningskällan.</li>
+ <li>Bibehåll tryck i minst 3 minuter.</li>
+ <li>Släpp sakta upp spännarmen (under 1 minut) och utvärdera sårpackningens effekt.</li>
+ <li>Lossa spänningen på kardborrebandet och utvärdera fortsatt sårpackningens effekt.</li>
+ <li>Applicera och täck sårpackningen med elastisk linda och/eller tryckförband.</li>
+ <li>Dokumentera åtgärden.</li></ol>
+ <h4>Ensam omhändertagare</h4><ol>
+ <li>Exponera hela såret och rengör sårskadan (om inte redan gjort). Klipp kläder vid behov.</li>
+ <li>Tamponera sårskadan med riktat tryck mot den mest sannolika blödningskällan.</li>
+ <li>Bibehåll tryck i minst 3 minuter.</li>
+ <li>Applicera och täck sårpackningen med elastisk linda och/eller tryckförband.</li>
+ <li>Släpp sakta upp spännarmen (under 1 minut) och utvärdera sårpackningens effekt.</li>
+ <li>Lossa spänningen på kardborrebandet och utvärdera fortsatt sårpackningens effekt.</li>
+ <li>Dokumentera åtgärden.</li></ol>`);
+}
+function openReposition(e){
+ if(e)e.stopPropagation();
+ showTechnique('Repositionering av tourniquet', `
+ <h3>Indikation</h3><p>När det finns oskadad vävnad mellan anbringad tourniquet och blödningskälla och det inte förflutit två timmar från anbringande av första tourniqueten.</p>
+ <h3>Materiel</h3><ul><li>Tourniquet (TQ)</li></ul>
+ <h3>Teknik</h3><ol>
+ <li>Exponera och evaluera hela såret och titta efter ytterligare blödningskällor. Klipp kläder vid behov.</li>
+ <li>Utvärdera tidigare satt tourniquet och dess effekt att kontrollera blödningen i anslutning till blödningskällan.</li>
+ <li>Anbringa en ny tourniquet direkt mot huden ca 10 cm ovanför sårets utbredning men ej över led.</li>
+ <li>Släpp sakta upp original-tourniquetens spännarm (under 1 minut) under noga observation av såret. Avlägsna inte tourniqueten.</li>
+ <li>Utvärdera effekten genom att övervaka sårskadan och titta efter reblödning.</li>
+ <li>Flytta den lösa original-tourniqueten ner mot den nya, anbringade tourniqueten. Lämna original-tourniqueten utan förspänning, endast den nya tourniqueten ska vara åtdragen.</li>
+ <li>Fyll i tidbandet på den nya tourniqueten med tiden då original-tourniqueten anbringades.</li>
+ <li>Dokumentera åtgärden.</li></ol>
+ <p><strong>NOTERA:</strong> Vid reblödning, anbringa original-tourniqueten omedelbart.</p>
+ <p><strong>NOTERA:</strong> Samma tid skrivs på den nya tourniqueten som original-tourniqueten, då tiden för syrebrist i extremiteten nedanför den nya tourniqueten är densamma.</p>`);
 }
 
 function openAirway(e){
@@ -533,7 +577,7 @@ function openPelvicInjury(e){
 
 function openExposeBleedingVideo(e){
  if(e)e.stopPropagation();
- showLocalVideo("Exponera och bedöm blödning(ar)","filmer/exponera-bedom-blodningar.mp4",()=>closeTrainingModal(),"MINNESKORTET");
+ showLocalVideo("Massive Hemorrhage","filmer/exponera-bedom-blodningar.mp4",()=>closeTrainingModal(),"MINNESKORTET");
 }
 
 function openShockVideo(e){
@@ -656,12 +700,14 @@ document.getElementById("respirationBtn")?.addEventListener("click",openRespirat
 document.getElementById("ndcBtn")?.addEventListener("click",openNDCVideo);
 document.getElementById("thoraxBtn")?.addEventListener("click",openThoraxVideo);
 document.getElementById("shockBtn")?.addEventListener("click",openShockVideo);
-document.getElementById("exposeBleedingBtn")?.addEventListener("click",openExposeBleedingVideo);
+document.getElementById("massiveVideoBtn")?.addEventListener("click",openExposeBleedingVideo);
 document.getElementById("pelvicBtn")?.addEventListener("click",openPelvicInjury);
 document.getElementById("consciousnessBtn")?.addEventListener("click",openConsciousness);
 document.getElementById("thoraxExamBtn")?.addEventListener("click",openThoraxExam);
 document.getElementById("hypothermiaBtn")?.addEventListener("click",openHypothermia);
 document.getElementById("splintingBtn")?.addEventListener("click",openSplinting);
+document.getElementById("convertBtn")?.addEventListener("click",openConversion);
+document.getElementById("repositionBtn")?.addEventListener("click",openReposition);
 document.getElementById("fentanylBtn")?.addEventListener("click",openFentanyl);
 document.getElementById("abdomenBtn")?.addEventListener("click",openAbdomen);
 document.getElementById("atmistBtn")?.addEventListener("click",openATMIST);
