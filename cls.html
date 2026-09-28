@@ -465,7 +465,12 @@ function openSeeListenFeel(e){
 
 function openJawLift(e){
  if(e) e.stopPropagation();
- showLocalVideo("Haklyft/käklyft","filmer/haklyft-kaklyft_web.mp4",openAirway,"AIRWAY");
+ title.textContent="Haklyft/käklyft";
+ content.innerHTML=`<div class="imageWrap"><img class="trainingImage" src="bilder/haklyft_kaklyft.png" alt="Haklyft och käklyft" loading="lazy" style="display:block;width:100%;height:auto;margin:0 0 18px;"></div>
+ <div class="localVideoBox"><video id="activeTrainingVideo" controls playsinline preload="auto"><source src="filmer/haklyft-kaklyft_web.mp4" type="video/mp4">Din webbläsare kan inte spela upp MP4-video.</video></div>
+ <div class="actions" style="margin-top:14px"><button type="button" id="videoBackBtn">← TILLBAKA TILL AIRWAY</button></div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ document.getElementById("videoBackBtn")?.addEventListener("click",openAirway);
 }
 
 function openNPA(e){
@@ -475,7 +480,12 @@ function openNPA(e){
 
 function openRecovery(e){
  if(e) e.stopPropagation();
- showLocalVideo("Stabilt sidoläge","filmer/stabilt-sidolage.mp4",openAirway,"AIRWAY");
+ title.textContent="Stabilt sidoläge";
+ content.innerHTML=`<div class="imageWrap"><img class="trainingImage" src="bilder/stabilt_sidolage.png" alt="Stabilt sidoläge" loading="lazy" style="display:block;width:100%;height:auto;margin:0 0 18px;"></div>
+ <div class="localVideoBox"><video id="activeTrainingVideo" controls playsinline preload="auto"><source src="filmer/stabilt-sidolage.mp4" type="video/mp4">Din webbläsare kan inte spela upp MP4-video.</video></div>
+ <div class="actions" style="margin-top:14px"><button type="button" id="videoBackBtn">← TILLBAKA TILL AIRWAY</button></div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+ document.getElementById("videoBackBtn")?.addEventListener("click",openAirway);
 }
 
 function openATMIST(e){
