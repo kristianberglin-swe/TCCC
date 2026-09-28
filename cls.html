@@ -301,7 +301,7 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
  <section class="section a">
   <div class="title"><button class="inlineLink" id="airwayBtn" type="button"><span class="badge">A</span>Airway</button></div>
   <div class="cols">
-   <ul><li>Kan svara / tilltal?</li><li>NEJ, (se, lyssna, känn)</li><li>Bedöm luftväg</li><li>Inspektera munhåla</li></ul>
+   <ul><li>Kan svara / tilltal?</li><li>NEJ, (<button class="inlineLink" type="button" id="seeListenFeelBtn"><b>se, lyssna, känn</b></button>)</li><li>Bedöm luftväg</li><li>Inspektera munhåla</li></ul>
    <ul><li>Optimera patientläge</li><li>Rensa munhåla</li><li><button class="inlineLink" id="jawLiftBtn" type="button"><b>Haklyft/käklyft</b></button></li><li><button class="inlineLink" id="recoveryBtn" type="button"><b>Stabilt sidoläge</b></button></li><li><button class="inlineLink" id="npaBtn" type="button"><b>Nästub (NPA)</b></button></li></ul>
   </div>
  </section>
@@ -453,6 +453,13 @@ function openAirway(e){
 <img class="trainingImage" src="bilder/airway_3.png" alt="Airway – utbildningsbild 3" loading="lazy" style="display:block;width:100%;height:auto;margin:0 0 18px;">
 <img class="trainingImage" src="bilder/airway_4.png" alt="Airway – utbildningsbild 4" loading="lazy" style="display:block;width:100%;height:auto;margin:0 0 18px;">
  </div>`;
+ modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+}
+
+function openSeeListenFeel(e){
+ if(e) e.stopPropagation();
+ title.textContent="Se, lyssna, känn";
+ content.innerHTML=`<div class="imageWrap"><img class="trainingImage" src="bilder/kontrollera_luftvagen.jpg" alt="Kontrollera luftvägen – se, lyssna och känn" loading="lazy" style="display:block;width:100%;height:auto;margin:0;"></div>`;
  modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
 }
 
@@ -714,6 +721,7 @@ document.getElementById("tourniquetBtn").addEventListener("keydown",e=>e.stopPro
 document.getElementById("tamponeringBtn")?.addEventListener("click",openTamponering);
 document.getElementById("tamponeringBtn").addEventListener("keydown",e=>e.stopPropagation());
 document.getElementById("airwayBtn")?.addEventListener("click",openAirway);
+document.getElementById("seeListenFeelBtn")?.addEventListener("click",openSeeListenFeel);
 document.getElementById("airwayBtn").addEventListener("keydown",e=>e.stopPropagation());
 document.getElementById("jawLiftBtn")?.addEventListener("click",openJawLift);
 document.getElementById("jawLiftBtn").addEventListener("keydown",e=>e.stopPropagation());
