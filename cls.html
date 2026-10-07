@@ -355,7 +355,7 @@ body::after { content:""; position:fixed; inset:0; z-index:-1;
  <div class="bottomcols">
   <section class="smallsec pm"><div class="title"><span class="badge" style="background:#7b5a78">P</span>Pain Management</div><div>Paracetamol – 1 g PO<br><br><button class="inlineLink" id="fentanylBtn" type="button">Fentanyl – enligt utbildning</button></div></section>
   <section class="smallsec ab"><div class="title"><span class="badge" style="background:#244a6a">A</span>Antibiotic Administration</div></section>
-  <section class="smallsec wound"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div><button class="inlineLink" id="convertBtn" type="button">Konvertering TQ</button> / <button class="inlineLink" id="repositionBtn" type="button">Repositionering TQ</button><br><button class="inlineLink" id="burnsBtn" type="button">Brännskador</button> • Sårskador<br>Amp.skador • <button class="inlineLink" id="abdomenBtn" type="button">Bukskador</button></div></section>
+  <section class="smallsec wound"><div class="title"><span class="badge" style="background:#315d80">W</span>Wound Management</div><div><button class="inlineLink" id="convertBtn" type="button">Konvertering TQ</button> / <button class="inlineLink" id="repositionBtn" type="button">Repositionering TQ</button><br><button class="inlineLink" id="burnsBtn" type="button">Brännskador</button> • Sårskador<br><button class="inlineLink" id="amputationBtn" type="button">Amp.skador</button> • <button class="inlineLink" id="abdomenBtn" type="button">Bukskador</button></div></section>
   <section class="smallsec splint"><div class="title"><button class="inlineLink" id="splintingBtn" type="button"><span class="badge" style="background:#315d80">S</span>Splinting</button></div><div>Avlägsna klockor, smycken<br>Distalstatus<br>Stabilisera och bandagera</div></section>
  </div>
  <div class="tap">KLICKA PÅ UNDERSTRUKNA MOMENT FÖR ATT VISA UTBILDNINGSMATERIAL</div>
@@ -530,6 +530,7 @@ function openFentanyl(e){if(e)e.stopPropagation();showSharedImages('Fentanyl',[
  ['bilder/fentanyl-teknik-asm.png','Fentanyl – teknik']]);}
 function openAbdomen(e){if(e)e.stopPropagation();showSharedImages('Bukskador',[
  ['bilder/bukskador-asm.png','Bukskador – utbildningsbild']]);}
+function openAmputationVideo(e){if(e)e.stopPropagation();showSharedImages('Amp.skador',[],'filmer/amputation-bandaging-en.mp4');}
 function openBurnsVideo(e){if(e)e.stopPropagation();showSharedImages('Brännskador',[
  ['bilder/brannskador-asm.png','Brännskador – utbildningsbild']],'filmer/brannskador.mp4');}
 function openEyeShieldVideo(e){if(e)e.stopPropagation();showSharedImages('Ögonskador',[
@@ -754,6 +755,7 @@ document.getElementById("repositionBtn")?.addEventListener("click",openRepositio
 document.getElementById("fentanylBtn")?.addEventListener("click",openFentanyl);
 document.getElementById("abdomenBtn")?.addEventListener("click",openAbdomen);
 document.getElementById("atmistBtn")?.addEventListener("click",openATMIST);
+document.getElementById("amputationBtn")?.addEventListener("click",openAmputationVideo);
 document.getElementById("burnsBtn")?.addEventListener("click",openBurnsVideo);
 document.getElementById("eyeShieldBtn")?.addEventListener("click",openEyeShieldVideo);
 
